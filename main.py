@@ -2,6 +2,7 @@
 import cv2
 import time
 
+
 def pixel_image(image_name, pixel_size=15):
     start = time.time()
     image = cv2.imread(image_name)
