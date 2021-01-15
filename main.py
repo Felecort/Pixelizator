@@ -1,4 +1,6 @@
+
 # PixelArtCode
+
 import cv2
 import time
 
@@ -17,12 +19,12 @@ def pixel_image(image_name, pixel_size=15):
             image[y:y + pixel_size, x:x + pixel_size] = pixel_color
     cropped_image = image[0:pixel_height * pixel_size, 0:pixel_width * pixel_size]
     cv2.imshow("PixelArt", cropped_image)
-    print(1 / (time.time() - start), ' fps')
+    print(1 / (time.time() - start), 'fps')
     cv2.waitKey(0)
     cv2.destroyAllWindows()
 
 
-IMAGE_NAME = "img/image_v.jpg"
-PIXEL_SIZE = 45
+IMAGE_NAME = "img/image.jpg"
+PIXEL_SIZE = 14
 
 pixel_image(IMAGE_NAME, PIXEL_SIZE)
