@@ -1,15 +1,17 @@
 
 # PixelArtCode
-
 import cv2
 import time
+from tkinter import Tk
+from tkinter.filedialog import askopenfilename
 
 
 def pixel_image(image_name, pixel_size=15):
     start = time.time()
-    image = cv2.imread("img/" + image_name)
+    image = cv2.imread(image_name)
     width = int(image.shape[1])
     height = int(image.shape[0])
+    # resolution of the final image
     pixel_height = int((height - pixel_size) / pixel_size) + 1
     pixel_width = int((width - pixel_size) / pixel_size) + 1
     half_pixel_size = int(pixel_size / 2)
@@ -24,7 +26,9 @@ def pixel_image(image_name, pixel_size=15):
     cv2.destroyAllWindows()
 
 
-IMAGE_NAME = "02.jpg"
-PIXEL_SIZE = 10
+# creating a dialog box for selecting a file
+Tk().withdraw()
+filename = askopenfilename()
 
-pixel_image(IMAGE_NAME, PIXEL_SIZE)
+PIXEL_SIZE = 10
+pixel_image(filename, PIXEL_SIZE)
