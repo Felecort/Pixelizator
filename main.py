@@ -7,7 +7,7 @@ import time
 
 def pixel_image(image_name, pixel_size=15):
     start = time.time()
-    image = cv2.imread(image_name)
+    image = cv2.imread("img/" + image_name)
     width = int(image.shape[1])
     height = int(image.shape[0])
     pixel_height = int((height - pixel_size) / pixel_size) + 1
@@ -24,7 +24,7 @@ def pixel_image(image_name, pixel_size=15):
     cv2.destroyAllWindows()
 
 
-IMAGE_NAME = "img/image.jpg"
-PIXEL_SIZE = 14
+IMAGE_NAME = "02.jpg"
+PIXEL_SIZE = 10
 
 pixel_image(IMAGE_NAME, PIXEL_SIZE)
