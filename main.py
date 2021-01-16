@@ -13,6 +13,9 @@ def save_image(image, image_name):
 
 
 def pixel_image(image_name, pixel_size=15):
+    if image_name == '':
+        print('missing the input image')
+        return -1
     start = time.time()
     image = cv2.imread(image_name)
     width = int(image.shape[1])
@@ -29,11 +32,9 @@ def pixel_image(image_name, pixel_size=15):
     cv2.imshow("PixelArt", cropped_image)
     print(1 / (time.time() - start), 'fps')
     key = cv2.waitKey(0)
-    print(key)
     if key == 115:
         save_image(image, image_name)
     cv2.destroyAllWindows()
-    # cv2.waitKey(0)
 
 
 # creating a dialog box for selecting a file
