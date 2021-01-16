@@ -1,9 +1,15 @@
-
 # PixelArtCode
 import cv2
-import time
+from time import time
 from tkinter import Tk
 from tkinter.filedialog import askopenfilename
+
+# creating a dialog box for selecting a file
+Tk().withdraw()
+filename = askopenfilename()
+if filename == '':
+    print('missing the input image')
+    exit()
 
 
 def save_image(image, image_name):
@@ -13,10 +19,7 @@ def save_image(image, image_name):
 
 
 def pixel_image(image_name, pixel_size=15):
-    if image_name == '':
-        print('missing the input image')
-        return -1
-    start = time.time()
+    start = time()
     image = cv2.imread(image_name)
     width = int(image.shape[1])
     height = int(image.shape[0])
@@ -29,17 +32,29 @@ def pixel_image(image_name, pixel_size=15):
             pixel_color = image[y + half_pixel_size, x + half_pixel_size]
             image[y:y + pixel_size, x:x + pixel_size] = pixel_color
     cropped_image = image[0:pixel_height * pixel_size, 0:pixel_width * pixel_size]
-    cv2.imshow("PixelArt", cropped_image)
-    print(1 / (time.time() - start), 'fps')
+    cv2.imshow(f"PixelArt, size = {pixel_size}", cropped_image)
+    print(1 / (time() - start), 'fps')
     key = cv2.waitKey(0)
     if key == 115:
         save_image(image, image_name)
     cv2.destroyAllWindows()
 
 
-# creating a dialog box for selecting a file
-Tk().withdraw()
-filename = askopenfilename()
+def ascii_image(image_name, font_size):
+    if image_name == '':
+        print('missing the input image')
+        return -1
+    start = time()
+    image = cv2.imread(image_name)
+    width = int(image.shape[1])
+    height = int(image.shape[0])
+    ascii_chars = ' .",:;!~+-xmo*#W&8@'
+    ascii_coeff = 255 // (len(ascii_chars) - 1)
+    print(ascii_coeff)
+
 
 PIXEL_SIZE = 10
 pixel_image(filename, PIXEL_SIZE)
+
+font_size = 12
+ascii_image(filename, font_size)
