@@ -56,5 +56,5 @@ def ascii_image(image_name, font_size):
 PIXEL_SIZE = 10
 pixel_image(filename, PIXEL_SIZE)
 
-font_size = 12
-ascii_image(filename, font_size)
+FONT_SIZE = 12
+ascii_image(filename, FONT_SIZE)
