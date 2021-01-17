@@ -4,6 +4,16 @@ from tkinter import Tk
 from tkinter.filedialog import askopenfilename
 
 
+def selecting_file():
+    # creating a dialog box for selecting a file
+    Tk().withdraw()
+    file_name = askopenfilename()
+    if file_name == '':
+        print('missing the input image')
+        exit()
+    return file_name
+
+
 def save_image(image, image_name):
     symbol_index = image_name.rfind('.')
     image_name = image_name[:symbol_index] + "_EDIT" + image_name[symbol_index:]
@@ -37,13 +47,15 @@ def conversion_to_pixel(image, pixel_size=15):
     return cropped_image
 
 
-def pixel_image(image_name, pixel_size=15):
+def pixel_image(pixel_size=15):
+    image_name = selecting_file()
     image = cv2.imread(image_name)
     pixel_img = conversion_to_pixel(image, pixel_size)
     draw_image(pixel_img, image_name, pixel_size)
 
 
-def video_pixel_art(video_name, pixel_size):
+def video_pixel_art(pixel_size):
+    video_name = selecting_file()
     video = cv2.VideoCapture(video_name)
     while True:
         ret, frame = video.read()
@@ -56,13 +68,20 @@ def video_pixel_art(video_name, pixel_size):
     cv2.destroyAllWindows()
 
 
-# creating a dialog box for selecting a file
-Tk().withdraw()
-FILE_NAME = askopenfilename()
-if FILE_NAME == '':
-    print('missing the input image')
-    exit()
+def webcam_pixel(pixel_size):
+    video = cv2.VideoCapture(0)
+    while True:
+        ret, frame = video.read()
+        key = cv2.waitKey(1)
+        if not ret or (key & 0xFF in [27, 32, 113]):
+            break
+        image = conversion_to_pixel(frame, pixel_size)
+        cv2.imshow("frame", image)
+    video.release()
+    cv2.destroyAllWindows()
+
 
 PIXEL_SIZE = 30
-# pixel_image(FILE_NAME, PIXEL_SIZE)
-video_pixel_art(FILE_NAME, PIXEL_SIZE)
+pixel_image(PIXEL_SIZE)
+# video_pixel_art(PIXEL_SIZE)
+# webcam_pixel(PIXEL_SIZE)
