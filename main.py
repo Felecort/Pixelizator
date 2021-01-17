@@ -32,7 +32,7 @@ def draw_image(image, image_name, pixel_size):
     cv2.destroyAllWindows()
 
 
-def conversion_to_pixel(image, pixel_size=15):
+def conversion_image_to_pixel(image, pixel_size=15):
     width = int(image.shape[1])
     height = int(image.shape[0])
     # resolution of the final image
@@ -47,41 +47,37 @@ def conversion_to_pixel(image, pixel_size=15):
     return cropped_image
 
 
+def pixel_video(video, pixel_size):
+    while True:
+        ret, frame = video.read()
+        key = cv2.waitKey(1)
+        if not ret or (key & 0xFF in [27, 32, 113]):
+            break
+        image = conversion_image_to_pixel(frame, pixel_size)
+        cv2.imshow("frame", image)
+    video.release()
+    cv2.destroyAllWindows()
+
+
 def pixel_image(pixel_size=15):
     image_name = selecting_file()
     image = cv2.imread(image_name)
-    pixel_img = conversion_to_pixel(image, pixel_size)
+    pixel_img = conversion_image_to_pixel(image, pixel_size)
     draw_image(pixel_img, image_name, pixel_size)
 
 
 def video_pixel_art(pixel_size):
     video_name = selecting_file()
     video = cv2.VideoCapture(video_name)
-    while True:
-        ret, frame = video.read()
-        key = cv2.waitKey(1)
-        if not ret or (key & 0xFF in [27, 32, 113]):
-            break
-        image = conversion_to_pixel(frame, pixel_size)
-        cv2.imshow("frame", image)
-    video.release()
-    cv2.destroyAllWindows()
+    pixel_video(video, pixel_size)
 
 
-def webcam_pixel(pixel_size):
+def webcam_pixel_art(pixel_size):
     video = cv2.VideoCapture(0)
-    while True:
-        ret, frame = video.read()
-        key = cv2.waitKey(1)
-        if not ret or (key & 0xFF in [27, 32, 113]):
-            break
-        image = conversion_to_pixel(frame, pixel_size)
-        cv2.imshow("frame", image)
-    video.release()
-    cv2.destroyAllWindows()
+    pixel_video(video, pixel_size)
 
 
-PIXEL_SIZE = 30
+PIXEL_SIZE = 10
 pixel_image(PIXEL_SIZE)
-# video_pixel_art(PIXEL_SIZE)
-# webcam_pixel(PIXEL_SIZE)
+video_pixel_art(PIXEL_SIZE)
+webcam_pixel_art(PIXEL_SIZE)
