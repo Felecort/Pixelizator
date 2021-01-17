@@ -1,11 +1,12 @@
+
 # PixelArtCode
 import cv2
 from tkinter import Tk
 from tkinter.filedialog import askopenfilename
 
 
+# Creating a dialog box for selecting a file
 def selecting_file():
-    # creating a dialog box for selecting a file
     Tk().withdraw()
     file_name = askopenfilename()
     if file_name == '':
@@ -14,6 +15,7 @@ def selecting_file():
     return file_name
 
 
+# Saving an image with adding "EDIT" at the end of the file to the source folder
 def save_image(image, image_name):
     symbol_index = image_name.rfind('.')
     image_name = image_name[:symbol_index] + "_EDIT" + image_name[symbol_index:]
@@ -24,6 +26,7 @@ def save_video(video, video_name):
     pass
 
 
+# Drawing an image on the screen
 def draw_image(image, image_name, pixel_size):
     cv2.imshow(f"PixelArt, size = {pixel_size}", image)
     key = cv2.waitKey(0)
@@ -32,6 +35,7 @@ def draw_image(image, image_name, pixel_size):
     cv2.destroyAllWindows()
 
 
+# Converting an image to pixel art
 def conversion_to_pixel(image, pixel_size=15):
     width = int(image.shape[1])
     height = int(image.shape[0])
@@ -47,6 +51,7 @@ def conversion_to_pixel(image, pixel_size=15):
     return cropped_image
 
 
+# Pixelation of the video stream
 def pixel_video(video, pixel_size):
     while True:
         ret, frame = video.read()
@@ -59,6 +64,7 @@ def pixel_video(video, pixel_size):
     cv2.destroyAllWindows()
 
 
+# Pixel art of a single image
 def image_pixel_art(pixel_size=15):
     image_name = selecting_file()
     image = cv2.imread(image_name)
@@ -66,12 +72,14 @@ def image_pixel_art(pixel_size=15):
     draw_image(pixel_img, image_name, pixel_size)
 
 
+# Pixelation of video and output to the screen
 def video_pixel_art(pixel_size):
     video_name = selecting_file()
     video = cv2.VideoCapture(video_name)
     pixel_video(video, pixel_size)
 
 
+# Pixelate webcam video and display it on the screen
 def webcam_pixel_art(pixel_size):
     video = cv2.VideoCapture(0, cv2.CAP_DSHOW)
     pixel_video(video, pixel_size)
