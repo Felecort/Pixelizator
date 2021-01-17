@@ -6,8 +6,8 @@ from tkinter.filedialog import askopenfilename
 
 # creating a dialog box for selecting a file
 Tk().withdraw()
-filename = askopenfilename()
-if filename == '':
+FILE_NAME = askopenfilename()
+if FILE_NAME == '':
     print('missing the input image')
     exit()
 
@@ -40,21 +40,5 @@ def pixel_image(image_name, pixel_size=15):
     cv2.destroyAllWindows()
 
 
-def ascii_image(image_name, font_size):
-    if image_name == '':
-        print('missing the input image')
-        return -1
-    start = time()
-    image = cv2.imread(image_name)
-    width = int(image.shape[1])
-    height = int(image.shape[0])
-    ascii_chars = ' .",:;!~+-xmo*#W&8@'
-    ascii_coeff = 255 // (len(ascii_chars) - 1)
-    print(ascii_coeff)
-
-
 PIXEL_SIZE = 10
-pixel_image(filename, PIXEL_SIZE)
-
-FONT_SIZE = 12
-ascii_image(filename, FONT_SIZE)
+pixel_image(FILE_NAME, PIXEL_SIZE)
