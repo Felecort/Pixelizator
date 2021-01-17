@@ -1,6 +1,5 @@
 # PixelArtCode
 import cv2
-from time import time
 from tkinter import Tk
 from tkinter.filedialog import askopenfilename
 
@@ -19,8 +18,7 @@ def draw_image(image, image_name, pixel_size):
     cv2.destroyAllWindows()
 
 
-def conversion_to_pixel(image_name, pixel_size=15):
-    image = cv2.imread(image_name)
+def conversion_to_pixel(image, pixel_size=15):
     width = int(image.shape[1])
     height = int(image.shape[0])
     # resolution of the final image
@@ -36,8 +34,23 @@ def conversion_to_pixel(image_name, pixel_size=15):
 
 
 def pixel_image(image_name, pixel_size=15):
-    image = conversion_to_pixel(image_name, pixel_size)
-    draw_image(image, image_name, pixel_size)
+    image = cv2.imread(image_name)
+    pixel_img = conversion_to_pixel(image, pixel_size)
+    draw_image(pixel_img, image_name, pixel_size)
+
+
+def video_pixel_art(video_name, pixel_size):
+    video = cv2.VideoCapture(video_name)
+    while True:
+        ret, frame = video.read()
+        if not ret:
+            break
+        image = conversion_to_pixel(frame, pixel_size)
+        cv2.imshow("frame", image)
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
+    video.release()
+    cv2.destroyAllWindows()
 
 
 # creating a dialog box for selecting a file
@@ -47,6 +60,6 @@ if FILE_NAME == '':
     print('missing the input image')
     exit()
 
-PIXEL_SIZE = 10
-pixel_image(FILE_NAME, PIXEL_SIZE)
-# video_pixel_art(FILE_NAME, PIXEL_SIZE)
+PIXEL_SIZE = 20
+# pixel_image(FILE_NAME, PIXEL_SIZE)
+video_pixel_art(FILE_NAME, PIXEL_SIZE)
