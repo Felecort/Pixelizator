@@ -47,13 +47,11 @@ def video_pixel_art(video_name, pixel_size):
     video = cv2.VideoCapture(video_name)
     while True:
         ret, frame = video.read()
-        if not ret:
+        key = cv2.waitKey(1)
+        if not ret or (key & 0xFF in [27, 32, 113]):
             break
         image = conversion_to_pixel(frame, pixel_size)
         cv2.imshow("frame", image)
-        key = cv2.waitKey(1)
-        if key & 0xFF in [27, 32, 113]:
-            break
     video.release()
     cv2.destroyAllWindows()
 
