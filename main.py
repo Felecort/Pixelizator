@@ -73,7 +73,7 @@ def video_pixel_art(pixel_size):
 
 
 def webcam_pixel_art(pixel_size):
-    video = cv2.VideoCapture(0)
+    video = cv2.VideoCapture(0, cv2.CAP_DSHOW)
     pixel_video(video, pixel_size)
 
 
