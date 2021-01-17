@@ -4,13 +4,6 @@ from time import time
 from tkinter import Tk
 from tkinter.filedialog import askopenfilename
 
-# creating a dialog box for selecting a file
-Tk().withdraw()
-FILE_NAME = askopenfilename()
-if FILE_NAME == '':
-    print('missing the input image')
-    exit()
-
 
 def save_image(image, image_name):
     symbol_index = image_name.rfind('.')
@@ -18,8 +11,15 @@ def save_image(image, image_name):
     cv2.imwrite(image_name, image)
 
 
-def pixel_image(image_name, pixel_size=15):
-    start = time()
+def draw_image(image, image_name, pixel_size):
+    cv2.imshow(f"PixelArt, size = {pixel_size}", image)
+    key = cv2.waitKey(0)
+    if key == 115:
+        save_image(image, image_name)
+    cv2.destroyAllWindows()
+
+
+def conversion_to_pixel(image_name, pixel_size=15):
     image = cv2.imread(image_name)
     width = int(image.shape[1])
     height = int(image.shape[0])
@@ -32,13 +32,21 @@ def pixel_image(image_name, pixel_size=15):
             pixel_color = image[y + half_pixel_size, x + half_pixel_size]
             image[y:y + pixel_size, x:x + pixel_size] = pixel_color
     cropped_image = image[0:pixel_height * pixel_size, 0:pixel_width * pixel_size]
-    cv2.imshow(f"PixelArt, size = {pixel_size}", cropped_image)
-    print(1 / (time() - start), 'fps')
-    key = cv2.waitKey(0)
-    if key == 115:
-        save_image(image, image_name)
-    cv2.destroyAllWindows()
+    return cropped_image
 
+
+def pixel_image(image_name, pixel_size=15):
+    image = conversion_to_pixel(image_name, pixel_size)
+    draw_image(image, image_name, pixel_size)
+
+
+# creating a dialog box for selecting a file
+Tk().withdraw()
+FILE_NAME = askopenfilename()
+if FILE_NAME == '':
+    print('missing the input image')
+    exit()
 
 PIXEL_SIZE = 10
 pixel_image(FILE_NAME, PIXEL_SIZE)
+# video_pixel_art(FILE_NAME, PIXEL_SIZE)
