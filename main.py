@@ -10,6 +10,10 @@ def save_image(image, image_name):
     cv2.imwrite(image_name, image)
 
 
+def save_video(video, video_name):
+    pass
+
+
 def draw_image(image, image_name, pixel_size):
     cv2.imshow(f"PixelArt, size = {pixel_size}", image)
     key = cv2.waitKey(0)
@@ -47,7 +51,8 @@ def video_pixel_art(video_name, pixel_size):
             break
         image = conversion_to_pixel(frame, pixel_size)
         cv2.imshow("frame", image)
-        if cv2.waitKey(1) & 0xFF == ord('q'):
+        key = cv2.waitKey(1)
+        if key & 0xFF in [27, 32, 113]:
             break
     video.release()
     cv2.destroyAllWindows()
@@ -60,6 +65,6 @@ if FILE_NAME == '':
     print('missing the input image')
     exit()
 
-PIXEL_SIZE = 20
+PIXEL_SIZE = 30
 # pixel_image(FILE_NAME, PIXEL_SIZE)
 video_pixel_art(FILE_NAME, PIXEL_SIZE)
