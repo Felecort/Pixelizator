@@ -8,7 +8,7 @@ from tkinter.filedialog import askopenfilename
 
 # Creating a dialog box for selecting a file
 def selecting_file():
-    # Tk().withdraw()
+    Tk().withdraw()
     file_name = askopenfilename()
     return file_name
 
@@ -63,7 +63,8 @@ def pixel_video(video, pixel_size):
 
 
 # Pixel art of a single image
-def image_pixel_art(pixel_size):
+def image_pixel_art():
+    pixel_size = int(txt.get())
     image_name = selecting_file()
     if image_name == '':
         print('missing the input image')
@@ -74,7 +75,8 @@ def image_pixel_art(pixel_size):
 
 
 # Pixelation of video and output to the screen
-def video_pixel_art(pixel_size):
+def video_pixel_art():
+    pixel_size = int(txt.get())
     video_name = selecting_file()
     if video_name == '':
         print('missing the input video')
@@ -84,27 +86,27 @@ def video_pixel_art(pixel_size):
 
 
 # Pixelate webcam video and display it on the screen
-def webcam_pixel_art(pixel_size):
+def webcam_pixel_art():
+    pixel_size = int(txt.get())
     video = cv2.VideoCapture(0, cv2.CAP_DSHOW)
     pixel_video(video, pixel_size)
 
 
-PIXEL_SIZE = 10
-
 window = Tk()
-window.geometry("500x150")
+window.geometry("700x400")
 window.title("PythonArt by FriLDD")
-lbl = Label(window, text="Hello, python", font=("Arial Bold", 50))
+lbl = Label(window, text="Enter the pixel size", font=("Arial Bold", 20))
 lbl.grid(column=0, row=0)
-image_button = Button(window, text="image_button", command=image_pixel_art(PIXEL_SIZE))
-image_button.grid(column=1, row=0)
-window.mainloop()
-# print(image_button)
-# print('---------')
-# print(video_button)
-# print('---------')
-# print(webcam_button)
+txt = Entry(window, width=20)
+txt.grid(column=0, row=1)
+txt.insert(0, "20")
 
-# image_pixel_art(PIXEL_SIZE)
-# video_pixel_art(PIXEL_SIZE)
-# webcam_pixel_art(PIXEL_SIZE)
+txt.focus()
+image_button = Button(window, text="image_button", command=image_pixel_art)
+image_button.grid(column=1, row=0)
+video_button = Button(window, text="video_button", command=video_pixel_art)
+video_button.grid(column=1, row=1)
+webcam_button = Button(window, text="webcam_button", command=webcam_pixel_art)
+webcam_button.grid(column=1, row=2)
+window.mainloop()
+
