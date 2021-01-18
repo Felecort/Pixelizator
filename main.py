@@ -91,6 +91,7 @@ def webcam_pixel_art():
     video = cv2.VideoCapture(0, cv2.CAP_DSHOW)
     pixel_video(video, pixel_size)
 
+
 # the formation of the main window
 window = Tk()
 window.geometry("700x400")
