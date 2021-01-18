@@ -2,7 +2,7 @@
 # PixelArtCode
 import cv2
 from tkinter import *
-# from tkinter import Tk
+from tkinter import Tk
 from tkinter.filedialog import askopenfilename
 
 
@@ -92,28 +92,37 @@ def webcam_pixel_art():
     pixel_video(video, pixel_size)
 
 
-# the formation of the main window
+# The formation of the main window
 window = Tk()
-window.geometry("700x400")
-window.title("PythonArt by FriLDD")
+icon = PhotoImage(file="data/icon.png")
+window.iconphoto(False, icon)
+window.geometry("700x400+300+350")
+window.resizable(False, False)
+window.title("Python Art by FriLDD")
+window.config(bg="#33cccc")
+
 
 # Text on the main window
-lbl = Label(window, text="Enter the pixel size", font=("Arial Bold", 20))
-lbl.grid(column=0, row=0)
+lbl = Label(window,
+            text="Enter the pixel size",
+            font=("Arial", 20, "bold"),
+            bg="#33cccc"
+            )
+lbl.place(x=100, y=20)
 
-# text input window options
-txt = Entry(window, width=20)
-txt.grid(column=0, row=1)
+# Text input window options
+txt = Entry(window, width=10, font=("Arial", 15, "bold"))
+txt.place(x=300, y=200)
 txt.insert(0, "20")
 txt.focus()
 
-# calling functions based on clicks
+# Calling functions based on clicks
 image_button = Button(window, text="image_button", command=image_pixel_art)
-image_button.grid(column=1, row=0)
+image_button.pack()
 video_button = Button(window, text="video_button", command=video_pixel_art)
-video_button.grid(column=1, row=1)
+video_button.pack()
 webcam_button = Button(window, text="webcam_button", command=webcam_pixel_art)
-webcam_button.grid(column=1, row=2)
+webcam_button.pack()
 
-# starting an infinite loop
+# Starting an infinite loop
 window.mainloop()
