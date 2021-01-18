@@ -1,7 +1,8 @@
 
 # PixelArtCode
 import cv2
-from tkinter import Tk
+from tkinter import *
+# from tkinter import Tk
 from tkinter.filedialog import askopenfilename
 
 
@@ -9,9 +10,6 @@ from tkinter.filedialog import askopenfilename
 def selecting_file():
     Tk().withdraw()
     file_name = askopenfilename()
-    if file_name == '':
-        print('missing the input image')
-        exit()
     return file_name
 
 
@@ -67,6 +65,9 @@ def pixel_video(video, pixel_size):
 # Pixel art of a single image
 def image_pixel_art(pixel_size=15):
     image_name = selecting_file()
+    if image_name == '':
+        print('missing the input image')
+        return -1
     image = cv2.imread(image_name)
     pixel_img = conversion_to_pixel(image, pixel_size)
     draw_image(pixel_img, image_name, pixel_size)
@@ -75,6 +76,9 @@ def image_pixel_art(pixel_size=15):
 # Pixelation of video and output to the screen
 def video_pixel_art(pixel_size):
     video_name = selecting_file()
+    if video_name == '':
+        print('missing the input video')
+        return -1
     video = cv2.VideoCapture(video_name)
     pixel_video(video, pixel_size)
 
