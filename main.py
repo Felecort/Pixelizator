@@ -8,7 +8,7 @@ from tkinter.filedialog import askopenfilename
 
 # Creating a dialog box for selecting a file
 def selecting_file():
-    Tk().withdraw()
+    # Tk().withdraw()
     file_name = askopenfilename()
     return file_name
 
@@ -63,7 +63,7 @@ def pixel_video(video, pixel_size):
 
 
 # Pixel art of a single image
-def image_pixel_art(pixel_size=15):
+def image_pixel_art(pixel_size):
     image_name = selecting_file()
     if image_name == '':
         print('missing the input image')
@@ -90,6 +90,21 @@ def webcam_pixel_art(pixel_size):
 
 
 PIXEL_SIZE = 10
-image_pixel_art(PIXEL_SIZE)
-video_pixel_art(PIXEL_SIZE)
-webcam_pixel_art(PIXEL_SIZE)
+
+window = Tk()
+window.geometry("500x150")
+window.title("PythonArt by FriLDD")
+lbl = Label(window, text="Hello, python", font=("Arial Bold", 50))
+lbl.grid(column=0, row=0)
+image_button = Button(window, text="image_button", command=image_pixel_art(PIXEL_SIZE))
+image_button.grid(column=1, row=0)
+window.mainloop()
+# print(image_button)
+# print('---------')
+# print(video_button)
+# print('---------')
+# print(webcam_button)
+
+# image_pixel_art(PIXEL_SIZE)
+# video_pixel_art(PIXEL_SIZE)
+# webcam_pixel_art(PIXEL_SIZE)
