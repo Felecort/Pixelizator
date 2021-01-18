@@ -91,22 +91,28 @@ def webcam_pixel_art():
     video = cv2.VideoCapture(0, cv2.CAP_DSHOW)
     pixel_video(video, pixel_size)
 
-
+# the formation of the main window
 window = Tk()
 window.geometry("700x400")
 window.title("PythonArt by FriLDD")
+
+# Text on the main window
 lbl = Label(window, text="Enter the pixel size", font=("Arial Bold", 20))
 lbl.grid(column=0, row=0)
+
+# text input window options
 txt = Entry(window, width=20)
 txt.grid(column=0, row=1)
 txt.insert(0, "20")
-
 txt.focus()
+
+# calling functions based on clicks
 image_button = Button(window, text="image_button", command=image_pixel_art)
 image_button.grid(column=1, row=0)
 video_button = Button(window, text="video_button", command=video_pixel_art)
 video_button.grid(column=1, row=1)
 webcam_button = Button(window, text="webcam_button", command=webcam_pixel_art)
 webcam_button.grid(column=1, row=2)
-window.mainloop()
 
+# starting an infinite loop
+window.mainloop()
