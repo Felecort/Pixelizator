@@ -89,7 +89,6 @@ def webcam_pixel_art(pixel_size):
     pixel_video(video, pixel_size)
 
 
-
 PIXEL_SIZE = 10
 image_pixel_art(PIXEL_SIZE)
 video_pixel_art(PIXEL_SIZE)
