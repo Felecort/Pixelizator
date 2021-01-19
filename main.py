@@ -108,21 +108,21 @@ lbl = Label(window,
             font=("Arial", 20, "bold"),
             bg="#33cccc"
             )
-lbl.place(x=100, y=20)
+lbl.place(x=20, y=20)
 
 # Text input window options
-txt = Entry(window, width=10, font=("Arial", 15, "bold"))
-txt.place(x=300, y=200)
+txt = Entry(window, width=5, font=("Arial", 15, "bold"))
+txt.place(x=20, y=60)
 txt.insert(0, "20")
 txt.focus()
 
 # Calling functions based on clicks
-image_button = Button(window, text="image_button", command=image_pixel_art)
-image_button.pack()
-video_button = Button(window, text="video_button", command=video_pixel_art)
-video_button.pack()
-webcam_button = Button(window, text="webcam_button", command=webcam_pixel_art)
-webcam_button.pack()
+image_button = Button(window, text="image_button", command=image_pixel_art, activebackground="#E0E0E0")
+image_button.place(x=20, y=100)
+video_button = Button(window, text="video_button", command=video_pixel_art, activebackground="#E0E0E0")
+video_button.place(x=20, y=140)
+webcam_button = Button(window, text="webcam_button", command=webcam_pixel_art, activebackground="#E0E0E0")
+webcam_button.place(x=20, y=180)
 
 # Starting an infinite loop
 window.mainloop()
