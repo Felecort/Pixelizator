@@ -20,10 +20,6 @@ def save_image(image, image_name):
     cv2.imwrite(image_name, image)
 
 
-def save_video(video, video_name):
-    pass
-
-
 # Drawing an image on the screen
 def draw_image(image, image_name, pixel_size):
     cv2.imshow(f"PixelArt, size = {pixel_size}", image)
@@ -64,7 +60,7 @@ def pixel_video(video, pixel_size):
 
 # Pixel art of a single image
 def image_pixel_art():
-    pixel_size = int(txt.get())
+    pixel_size = int(entry_pixel_size.get())
     image_name = selecting_file()
     if image_name == '':
         print('missing the input image')
@@ -76,7 +72,7 @@ def image_pixel_art():
 
 # Pixelation of video and output to the screen
 def video_pixel_art():
-    pixel_size = int(txt.get())
+    pixel_size = int(entry_pixel_size.get())
     video_name = selecting_file()
     if video_name == '':
         print('missing the input video')
@@ -87,7 +83,7 @@ def video_pixel_art():
 
 # Pixelate webcam video and display it on the screen
 def webcam_pixel_art():
-    pixel_size = int(txt.get())
+    pixel_size = int(entry_pixel_size.get())
     video = cv2.VideoCapture(0, cv2.CAP_DSHOW)
     pixel_video(video, pixel_size)
 
@@ -111,17 +107,38 @@ lbl = Label(window,
 lbl.place(x=20, y=20)
 
 # Text input window options
-txt = Entry(window, width=5, font=("Arial", 15, "bold"))
-txt.place(x=20, y=60)
-txt.insert(0, "20")
-txt.focus()
+entry_pixel_size = Entry(window,
+                         width=10,
+                         font=("Arial", 12, "bold"))
+entry_pixel_size.place(x=20, y=60)
+entry_pixel_size.insert(0, "20")
+entry_pixel_size.focus()
 
 # Calling functions based on clicks
-image_button = Button(window, text="image_button", command=image_pixel_art, activebackground="#E0E0E0")
+# state.Tk=DISABLED
+image_button = Button(window,
+                      text="Image",
+                      command=image_pixel_art,
+                      activebackground="#E0E0E0",
+                      font=("Arial", 12),
+                      width=10
+                      )
 image_button.place(x=20, y=100)
-video_button = Button(window, text="video_button", command=video_pixel_art, activebackground="#E0E0E0")
+video_button = Button(window,
+                      text="Video",
+                      command=video_pixel_art,
+                      activebackground="#E0E0E0",
+                      font=("Arial", 12),
+                      width=10
+                      )
 video_button.place(x=20, y=140)
-webcam_button = Button(window, text="webcam_button", command=webcam_pixel_art, activebackground="#E0E0E0")
+webcam_button = Button(window,
+                       text="Webcam",
+                       command=webcam_pixel_art,
+                       activebackground="#E0E0E0",
+                       font=("Arial", 12),
+                       width=10
+                       )
 webcam_button.place(x=20, y=180)
 
 # Starting an infinite loop
