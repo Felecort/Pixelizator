@@ -136,7 +136,7 @@ webcam_button = Button(window, text="Webcam", command=webcam_pixel_art,
                        width=10
                        )
 webcam_button.place(x=20, y=180)
-exit_button = Button(window, text="exit", command=exit_command,
+exit_button = Button(window, text="Exit", command=exit_command,
                      activebackground="#E0E0E0",
                      font=("Arial", 12),
                      width=10
