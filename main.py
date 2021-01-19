@@ -1,9 +1,12 @@
-
 # PixelArtCode
 import cv2
 from tkinter import *
 from tkinter import Tk
 from tkinter.filedialog import askopenfilename
+
+
+def exit_command():
+    exit()
 
 
 # Creating a dialog box for selecting a file
@@ -97,7 +100,6 @@ window.resizable(False, False)
 window.title("Python Art by FriLDD")
 window.config(bg="#33cccc")
 
-
 # Text on the main window
 lbl = Label(window,
             text="Enter the pixel size",
@@ -116,30 +118,30 @@ entry_pixel_size.focus()
 
 # Calling functions based on clicks
 # state.Tk=DISABLED
-image_button = Button(window,
-                      text="Image",
-                      command=image_pixel_art,
+image_button = Button(window, text="Image", command=image_pixel_art,
                       activebackground="#E0E0E0",
                       font=("Arial", 12),
                       width=10
                       )
 image_button.place(x=20, y=100)
-video_button = Button(window,
-                      text="Video",
-                      command=video_pixel_art,
+video_button = Button(window, text="Video", command=video_pixel_art,
                       activebackground="#E0E0E0",
                       font=("Arial", 12),
                       width=10
                       )
 video_button.place(x=20, y=140)
-webcam_button = Button(window,
-                       text="Webcam",
-                       command=webcam_pixel_art,
+webcam_button = Button(window, text="Webcam", command=webcam_pixel_art,
                        activebackground="#E0E0E0",
                        font=("Arial", 12),
                        width=10
                        )
 webcam_button.place(x=20, y=180)
+exit_button = Button(window, text="exit", command=exit_command,
+                     activebackground="#E0E0E0",
+                     font=("Arial", 12),
+                     width=10
+                     )
+exit_button.place(x=20, y=350)
 
 # Starting an infinite loop
 window.mainloop()
