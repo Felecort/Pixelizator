@@ -19,6 +19,11 @@ def save_image(image, image_name):
     cv2.imwrite(image_name, image)
 
 
+def save_video(video_name):
+
+    pass
+
+
 # Drawing an image on the screen
 def draw_image(image, image_name, pixel_size):
     cv2.imshow(f"PixelArt, size = {pixel_size}", image)
@@ -76,8 +81,24 @@ def video_pixel_art():
     if video_name == '':
         print('missing the input video')
         return -1
+    symbol_index = video_name.rfind('.')
+    video_name = video_name[:symbol_index] + "_EDIT" + video_name[symbol_index:]
+
+    fourcc = cv2.VideoWriter_fourcc(* "XVID")
+    out = cv2.VideoWriter(video_name, fourcc, 20, (640, 480))
+
     video = cv2.VideoCapture(video_name)
-    pixel_video(video, pixel_size)
+    while True:
+        ret, frame = video.read()
+        key = cv2.waitKey(1)
+        if not ret:
+            break
+        image = conversion_to_pixel(frame, pixel_size)
+        out.write(image)
+    video.release()
+    cv2.destroyAllWindows()
+
+    # pixel_video(video, pixel_size, video_name)
 
 
 # Pixelate webcam video and display it on the screen
@@ -88,6 +109,7 @@ def webcam_pixel_art():
 
 
 # The formation of the main window
+
 window = Tk()
 icon = PhotoImage(file="data/icon.png")
 window.iconphoto(False, icon)
@@ -111,6 +133,7 @@ entry_pixel_size = Entry(window,
 entry_pixel_size.place(x=20, y=60)
 entry_pixel_size.insert(0, "20")
 entry_pixel_size.focus()
+
 
 # Calling functions based on clicks
 # state.Tk=DISABLED
