@@ -19,11 +19,6 @@ def save_image(image, image_name):
     cv2.imwrite(image_name, image)
 
 
-def save_video(video_name):
-
-    pass
-
-
 # Drawing an image on the screen
 def draw_image(image, image_name, pixel_size):
     cv2.imshow(f"PixelArt, size = {pixel_size}", image)
@@ -82,15 +77,15 @@ def video_pixel_art():
         print('missing the input video')
         return -1
     symbol_index = video_name.rfind('.')
-    video_name = video_name[:symbol_index] + "_EDIT" + video_name[symbol_index:]
-
-    fourcc = cv2.VideoWriter_fourcc(* "XVID")
-    out = cv2.VideoWriter(video_name, fourcc, 20, (640, 480))
+    video_name = video_name[:symbol_index] + "_EDIT.avi"  # + video_name[symbol_index:]
 
     video = cv2.VideoCapture(video_name)
+
+    fourcc = cv2.VideoWriter_fourcc(*'XVID')
+    out = cv2.VideoWriter(video_name, fourcc, 20.0, (640, 360))
+
     while True:
         ret, frame = video.read()
-        key = cv2.waitKey(1)
         if not ret:
             break
         image = conversion_to_pixel(frame, pixel_size)
@@ -133,7 +128,6 @@ entry_pixel_size = Entry(window,
 entry_pixel_size.place(x=20, y=60)
 entry_pixel_size.insert(0, "20")
 entry_pixel_size.focus()
-
 
 # Calling functions based on clicks
 # state.Tk=DISABLED
