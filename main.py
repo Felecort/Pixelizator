@@ -34,28 +34,20 @@ def get_constant(image, pixel_size):
     width = int(image.shape[1])
     pixel_height = int((height - pixel_size) / pixel_size) + 1
     pixel_width = int((width - pixel_size) / pixel_size) + 1
-
     # returned constants
     h_plus_ps1 = height - pixel_size + 1
     w_min_ps1 = width - pixel_size + 1
     half_pixel_size = int(pixel_size / 2)
     pixel_h_mult_ps = pixel_height * pixel_size
     pixel_w_mult_ps = pixel_width * pixel_size
-    #       0           1           2                  3            4
     return h_plus_ps1, w_min_ps1, half_pixel_size, pixel_h_mult_ps, pixel_w_mult_ps
 
 
 def conversion_to_pixel(image, data, pixel_size=15):
-    # -------------------------------------------------------------
-    #                   h_plus_ps1
     for y in range(0, data[0], pixel_size):
-        #                 w_min_ps1
         for x in range(0, data[1], pixel_size):
-            #                   half_pixel_size         half_pixel_size
             pixel_color = image[y + data[2], x + data[2]]
-            #       y_plus_ps           x_plus_ps
             image[y:y + pixel_size, x:x + pixel_size] = pixel_color
-            # pixel_h_mult_ps            pixel_w_mult_ps
     cropped_image = image[0:data[3], 0:data[4]]
     return cropped_image
 
@@ -96,16 +88,14 @@ def video_pixel_art():
         print('missing the input video')
         return -1
     start = time()
-
     video = cv2.VideoCapture(video_name)
     fps = video.get(cv2.CAP_PROP_FPS)
     symbol_index = video_name.rfind('.')
     video_name = video_name[:symbol_index] + "_EDIT.mp4"
-
-    fourcc = cv2.VideoWriter_fourcc(*'mp4v')
-    out = cv2.VideoWriter(video_name, fourcc, fps, (640, 360))
-    ret, frame = video.read()
+    ret, frame = (video.read())
     data = get_constant(frame, pixel_size)
+    fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+    out = cv2.VideoWriter(video_name, fourcc, fps, (data[4], data[3]))
     while True:
         ret, frame = video.read()
         if not ret:
