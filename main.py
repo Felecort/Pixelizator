@@ -1,3 +1,4 @@
+
 # PixelArtCode
 import cv2
 from tkinter import *
@@ -64,7 +65,7 @@ def image_pixel_art():
     image_name = selecting_file()
     if image_name == '':
         print('missing the input image')
-        return -1
+        return 0
     image = cv2.imread(image_name)
     pixel_img = conversion_to_pixel(image, pixel_size)
     draw_image(pixel_img, image_name, pixel_size)
@@ -76,7 +77,7 @@ def video_pixel_art():
     video_name = selecting_file()
     if video_name == '':
         print('missing the input video')
-        return -1
+        return 0
     start = time()
 
     video = cv2.VideoCapture(video_name)
@@ -114,6 +115,7 @@ def webcam_pixel_art():
 # The formation of the main window
 
 window = Tk()
+
 icon = PhotoImage(file="data/icon.png")
 window.iconphoto(False, icon)
 window.geometry("700x400+300+350")
