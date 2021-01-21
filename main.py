@@ -88,12 +88,16 @@ def video_pixel_art():
         print('missing the input video')
         return -1
     start = time()
+
+    # Preparing constants
     video = cv2.VideoCapture(video_name)
     fps = video.get(cv2.CAP_PROP_FPS)
-    symbol_index = video_name.rfind('.')
-    video_name = video_name[:symbol_index] + "_EDIT.mp4"
     ret, frame = (video.read())
     data = get_constant(frame, pixel_size)
+
+    # Codec settings and new file name
+    symbol_index = video_name.rfind('.')
+    video_name = video_name[:symbol_index] + "_EDIT.mp4"
     fourcc = cv2.VideoWriter_fourcc(*'mp4v')
     out = cv2.VideoWriter(video_name, fourcc, fps, (data[4], data[3]))
     while True:
