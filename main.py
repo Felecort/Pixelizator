@@ -96,8 +96,6 @@ def video_pixel_art():
         ret, frame = video.read()
         if not ret:
             break
-        frame = cv2.flip(frame, 0)
-        #                           4           3
         image = conversion_to_pixel(frame, pixel_size)
         out.write(image)
     video.release()
