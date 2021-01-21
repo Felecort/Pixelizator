@@ -78,18 +78,26 @@ def video_pixel_art():
         print('missing the input video')
         return -1
     start = time()
+
     video = cv2.VideoCapture(video_name)
     fps = video.get(cv2.CAP_PROP_FPS)
-    symbol_index = video_name.rfind('.')
-    video_name = video_name[:symbol_index] + "_EDIT.mp4"
+    ret, frame = video.read()
+    height = int(frame.shape[0])
+    width = int(frame.shape[1])
+    h = (int((height - pixel_size) / pixel_size) + 1) * pixel_size
+    w = (int((width - pixel_size) / pixel_size) + 1) * pixel_size
 
     fourcc = cv2.VideoWriter_fourcc(*'mp4v')
-    out = cv2.VideoWriter(video_name, fourcc, fps, (640, 360))
+    symbol_index = video_name.rfind('.')
+    video_name = video_name[:symbol_index] + "_EDIT.mp4"
+    out = cv2.VideoWriter(video_name, fourcc, fps, (w, h))
+
     while True:
         ret, frame = video.read()
         if not ret:
             break
         frame = cv2.flip(frame, 0)
+        #                           4           3
         image = conversion_to_pixel(frame, pixel_size)
         out.write(image)
     video.release()
