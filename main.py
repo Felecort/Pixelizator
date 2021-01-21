@@ -3,6 +3,7 @@ import cv2
 from tkinter import *
 from tkinter import Tk
 from tkinter.filedialog import askopenfilename
+from time import time
 
 
 # Creating a dialog box for selecting a file
@@ -76,13 +77,14 @@ def video_pixel_art():
     if video_name == '':
         print('missing the input video')
         return -1
-
+    start = time()
     video = cv2.VideoCapture(video_name)
+    fps = video.get(cv2.CAP_PROP_FPS)
     symbol_index = video_name.rfind('.')
     video_name = video_name[:symbol_index] + "_EDIT.mp4"
 
     fourcc = cv2.VideoWriter_fourcc(*'mp4v')
-    out = cv2.VideoWriter(video_name, fourcc, 10.0, (640, 360))
+    out = cv2.VideoWriter(video_name, fourcc, fps, (640, 360))
     while True:
         ret, frame = video.read()
         if not ret:
@@ -92,6 +94,7 @@ def video_pixel_art():
         out.write(image)
     video.release()
     out.release()
+    print(time() - start)
     cv2.destroyAllWindows()
 
 
