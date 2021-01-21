@@ -79,22 +79,6 @@ def video_pixel_art():
     symbol_index = video_name.rfind('.')
     video_name = video_name[:symbol_index] + "_EDIT.avi"  # + video_name[symbol_index:]
 
-    video = cv2.VideoCapture(video_name)
-
-    fourcc = cv2.VideoWriter_fourcc(*'XVID')
-    out = cv2.VideoWriter(video_name, fourcc, 20.0, (640, 360))
-
-    while True:
-        ret, frame = video.read()
-        if not ret:
-            break
-        image = conversion_to_pixel(frame, pixel_size)
-        out.write(image)
-    video.release()
-    cv2.destroyAllWindows()
-
-    # pixel_video(video, pixel_size, video_name)
-
 
 # Pixelate webcam video and display it on the screen
 def webcam_pixel_art():
