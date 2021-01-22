@@ -88,6 +88,13 @@ def image_pixel_art():
                                     font=("Arial", 12, "bold"),
                                     fill="#000000")
         return 0
+    elif image_name[-3:] not in ["jpg", "png"]:
+        canvas_progress.update()
+        canvas_progress.create_text(125, 17,
+                                    text="Неподдерживаемый формат файла",
+                                    font=("Arial", 10, "bold"),
+                                    fill="#000000")
+        return 0
     image = cv2.imread(image_name)
     pixel_img = conversion_to_pixel(image, pixel_size)
     canvas_progress.update()
