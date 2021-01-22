@@ -2,9 +2,9 @@
 # PixelArtCode
 import cv2
 from tkinter import *
-from tkinter import Tk
 from tkinter.filedialog import askopenfilename
 import numpy as np
+from sys import exit
 
 
 # Creating a dialog box for selecting a file
