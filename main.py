@@ -139,8 +139,6 @@ def webcam_pixel_art():
 # The formation of the main window
 window = Tk()
 
-icon = PhotoImage(file="data/icon.png")
-window.iconphoto(False, icon)
 window.geometry("700x400+300+350")
 window.resizable(False, False)
 window.title("Python Art by FriLDD")
