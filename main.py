@@ -210,7 +210,7 @@ description_label = Label(window,
 description_label.place(x=300, y=200)
 
 author_label = Label(window,
-                     text="Автор приложения: https://github.com/FriLDD",
+                     text="Автор приложения: FriLDD *клик*",
                      font=("Arial", 12, "bold"),
                      bg="#33cccc",
                      cursor="hand2"
