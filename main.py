@@ -78,6 +78,9 @@ def video_pixel_art():
     if video_name == '':
         print('missing the input video')
         return 0
+    elif video_name[-3:] != "mp4":
+        print("only mp4 videos are supported")
+        return 0
     start = time()
 
     video = cv2.VideoCapture(video_name)
@@ -111,7 +114,6 @@ def webcam_pixel_art():
 
 
 # The formation of the main window
-
 window = Tk()
 
 icon = PhotoImage(file="data/icon.png")
