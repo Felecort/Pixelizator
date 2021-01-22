@@ -133,41 +133,50 @@ window.title("Python Art by FriLDD")
 window.config(bg="#33cccc")
 
 # Text on the main window
-lbl = Label(window,
-            text="Enter the pixel size",
-            font=("Arial", 20, "bold"),
-            bg="#33cccc"
-            )
-lbl.place(x=20, y=20)
+title_label = Label(window,
+                    text="Pixel size:",
+                    font=("Arial", 14, "bold"),
+                    bg="#33cccc"
+                    )
+title_label.place(x=20, y=20)
+title_label.update()
+
+video_label = Label(window,
+                    text="Status:",
+                    font=("Arial", 14, "bold"),
+                    bg="#33cccc"
+                    )
+video_label.place(x=250, y=50)
 
 # Text input window options
 entry_pixel_size = Entry(window,
-                         width=10,
-                         font=("Arial", 12, "bold"))
-entry_pixel_size.place(x=20, y=60)
+                         width=12,
+                         font=("Arial", 14))
+entry_pixel_size.place(x=20, y=50)
 entry_pixel_size.insert(0, "10")
 entry_pixel_size.focus()
+entry_pixel_size.update()
 
 # Calling functions based on clicks
 # state.Tk=DISABLED
 image_button = Button(window, text="Image", command=image_pixel_art,
                       activebackground="#E0E0E0",
-                      font=("Arial", 12),
-                      width=10
+                      font=("Arial", 14),
+                      width=12
                       )
 image_button.place(x=20, y=100)
 video_button = Button(window, text="Video", command=video_pixel_art,
                       activebackground="#E0E0E0",
-                      font=("Arial", 12),
-                      width=10
+                      font=("Arial", 14),
+                      width=12
                       )
-video_button.place(x=20, y=140)
+video_button.place(x=20, y=150)
 webcam_button = Button(window, text="Webcam", command=webcam_pixel_art,
                        activebackground="#E0E0E0",
-                       font=("Arial", 12),
-                       width=10
+                       font=("Arial", 14),
+                       width=12
                        )
-webcam_button.place(x=20, y=180)
+webcam_button.place(x=20, y=200)
 
 # Exit
 exit_button = Button(window, text="Exit",
