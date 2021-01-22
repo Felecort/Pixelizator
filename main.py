@@ -16,7 +16,9 @@ def selecting_file():
 
 # Drawing the progress of video processing
 def draw_progress(progress):
-    pass
+    progress *= 2.5
+    canvas_progress.update()
+    canvas_progress.create_rectangle(0, 0, progress, 50, fill="#E0E0E0", width=0)
 
 
 # Saving an image with adding "EDIT" at the end of the file to the source folder
@@ -195,5 +197,6 @@ exit_button.place(x=20, y=350)
 
 canvas_progress = Canvas(window, width=250, height=30, bg="#33cccc")
 canvas_progress.place(x=330, y=50)
+
 # Starting an infinite loop
 window.mainloop()
