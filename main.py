@@ -143,7 +143,7 @@ entry_pixel_size = Entry(window,
                          width=10,
                          font=("Arial", 12, "bold"))
 entry_pixel_size.place(x=20, y=60)
-entry_pixel_size.insert(0, "20")
+entry_pixel_size.insert(0, "10")
 entry_pixel_size.focus()
 
 # Calling functions based on clicks
