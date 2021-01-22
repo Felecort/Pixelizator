@@ -14,6 +14,11 @@ def selecting_file():
     return file_name
 
 
+# Drawing the progress of video processing
+def draw_progress(progress):
+    pass
+
+
 # Saving an image with adding "EDIT" at the end of the file to the source folder
 def save_image(image, image_name):
     symbol_index = image_name.rfind('.')
@@ -106,9 +111,10 @@ def video_pixel_art():
             break
         count_frames += 1
         progress = round(count_frames / number_of_frames * 100)
-        print(progress)
+        draw_progress(progress)
         image = conversion_to_pixel(frame, pixel_size)
         out.write(image)
+    draw_progress(100)
     video.release()
     out.release()
     print(time() - start)
@@ -187,5 +193,7 @@ exit_button = Button(window, text="Exit",
                      )
 exit_button.place(x=20, y=350)
 
+canvas_progress = Canvas(window, width=250, height=30, bg="#33cccc")
+canvas_progress.place(x=330, y=50)
 # Starting an infinite loop
 window.mainloop()
