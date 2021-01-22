@@ -146,7 +146,7 @@ window.config(bg="#33cccc")
 
 # Text on the main window
 title_label = Label(window,
-                    text="Pixel size:",
+                    text="Размер пикселя:",
                     font=("Arial", 14, "bold"),
                     bg="#33cccc"
                     )
@@ -154,11 +154,28 @@ title_label.place(x=20, y=20)
 title_label.update()
 
 video_label = Label(window,
-                    text="Status:",
+                    text="Обработка:",
                     font=("Arial", 14, "bold"),
                     bg="#33cccc"
                     )
-video_label.place(x=250, y=50)
+video_label.place(x=210, y=50)
+
+settings_title = Label(window,
+                       text="""
+Для сохранения изображения нажмите "s" 
+
+Закрыть изображение: "space" или "esc"
+
+Обработанные видео сохраняются
+в той же папке, где и оригинал
+
+Автор приложения: https://github.com/FriLDD
+                            """,
+                       font=("Arial", 14, "bold"),
+                       bg="#33cccc",
+                       justify=LEFT
+                       )
+settings_title.place(x=250, y=180)
 
 # Text input window options
 entry_pixel_size = Entry(window,
@@ -171,19 +188,19 @@ entry_pixel_size.update()
 
 # Calling functions based on clicks
 # state.Tk=DISABLED
-image_button = Button(window, text="Image", command=image_pixel_art,
+image_button = Button(window, text="Изображение", command=image_pixel_art,
                       activebackground="#E0E0E0",
                       font=("Arial", 14),
                       width=12
                       )
 image_button.place(x=20, y=100)
-video_button = Button(window, text="Video", command=video_pixel_art,
+video_button = Button(window, text="Видео", command=video_pixel_art,
                       activebackground="#E0E0E0",
                       font=("Arial", 14),
                       width=12
                       )
 video_button.place(x=20, y=150)
-webcam_button = Button(window, text="Webcam", command=webcam_pixel_art,
+webcam_button = Button(window, text="Веб-камера", command=webcam_pixel_art,
                        activebackground="#E0E0E0",
                        font=("Arial", 14),
                        width=12
@@ -191,7 +208,7 @@ webcam_button = Button(window, text="Webcam", command=webcam_pixel_art,
 webcam_button.place(x=20, y=200)
 
 # Exit
-exit_button = Button(window, text="Exit",
+exit_button = Button(window, text="Выход",
                      command=lambda: exit(),
                      activebackground="#E0E0E0",
                      font=("Arial", 12),
