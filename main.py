@@ -1,4 +1,3 @@
-
 # PixelArtCode
 import cv2
 from tkinter import *
@@ -100,7 +99,6 @@ def video_pixel_art():
     symbol_index = video_name.rfind('.')
     video_name = video_name[:symbol_index] + "_EDIT.mp4"
     out = cv2.VideoWriter(video_name, fourcc, fps, (width, height))
-
     while True:
         ret, frame = video.read()
         if not ret:
@@ -129,6 +127,10 @@ window.geometry("700x400+300+350")
 window.resizable(False, False)
 window.title("Python Art by FriLDD")
 window.config(bg="#33cccc")
+# ----------------------------------------------------
+# label_example = Label(window, text="This is Label")
+
+# ----------------------------------------------------
 
 # Text on the main window
 lbl = Label(window,
