@@ -154,7 +154,6 @@ def video_pixel_art():
         count_frames += 1
         image = conversion_to_pixel(frame, pixel_size)
         out.write(image)
-    draw_progress(100)
     canvas_update_status("Успешно!", 12)
     video.release()
     out.release()
