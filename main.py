@@ -1,10 +1,10 @@
-
 # PixelArtCode
 import cv2
 from tkinter import *
 from tkinter.filedialog import askopenfilename
 import numpy as np
 from sys import exit
+from webbrowser import open_new
 
 
 # Creating a dialog box for selecting a file
@@ -160,22 +160,28 @@ video_label = Label(window,
                     )
 video_label.place(x=210, y=50)
 
-settings_title = Label(window,
-                       text="""
+description_label = Label(window,
+                          text="""
 Для сохранения изображения нажмите "s" 
 
 Закрыть изображение: "space" или "esc"
 
 Обработанные видео сохраняются
 в той же папке, где и оригинал
-
-Автор приложения: https://github.com/FriLDD
                             """,
-                       font=("Arial", 14, "bold"),
-                       bg="#33cccc",
-                       justify=LEFT
-                       )
-settings_title.place(x=250, y=180)
+                          font=("Arial", 12, "bold"),
+                          bg="#33cccc",
+                          justify=LEFT
+                          )
+description_label.place(x=300, y=200)
+
+author_label = Label(window,
+                     text="Автор приложения: https://github.com/FriLDD",
+                     font=("Arial", 12, "bold"),
+                     bg="#33cccc",
+                     cursor="hand2")
+author_label.place(x=300, y=360)
+author_label.bind("<Button-1>", lambda x: open_new("https://github.com/FriLDD"))
 
 # Text input window options
 entry_pixel_size = Entry(window,
