@@ -4,7 +4,6 @@ import cv2
 from tkinter import *
 from tkinter import Tk
 from tkinter.filedialog import askopenfilename
-from time import time
 import numpy as np
 
 
@@ -97,8 +96,6 @@ def video_pixel_art():
     elif video_name[-3:] != "mp4":
         print("only mp4 videos are supported")
         return 0
-    start = time()
-
     canvas_progress.update()
     canvas_progress.create_rectangle(0, 0, 250, 50, fill="#33cccc", width=0)
 
@@ -129,7 +126,6 @@ def video_pixel_art():
     draw_progress(101)
     video.release()
     out.release()
-    print(time() - start)
     cv2.destroyAllWindows()
 
 
