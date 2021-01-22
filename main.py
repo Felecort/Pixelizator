@@ -15,8 +15,10 @@ def selecting_file():
     return file_name
 
 
+# Updating the text status
 def canvas_update_status(text, font_size):
     canvas_progress.update()
+    canvas_progress.delete(ALL)
     canvas_progress.create_text(125, 17,
                                 text=text,
                                 font=("Arial", font_size, "bold"),
@@ -24,8 +26,10 @@ def canvas_update_status(text, font_size):
                                 )
 
 
+# Updating the rectangle rendering
 def canvas_update_rect():
     canvas_progress.update()
+    canvas_progress.delete(ALL)
     canvas_progress.create_rectangle(0, 0,
                                      250, 50,
                                      fill="#33cccc",
@@ -224,7 +228,6 @@ entry_pixel_size.focus()
 entry_pixel_size.update()
 
 # Calling functions based on clicks
-# state.Tk=DISABLED
 image_button = Button(window, text="Изображение", command=image_pixel_art,
                       activebackground="#E0E0E0",
                       font=("Arial", 14),
@@ -253,12 +256,16 @@ exit_button = Button(window, text="Выход",
                      )
 exit_button.place(x=20, y=350)
 
+# Progress bar
 canvas_progress = Canvas(window,
                          width=248,
                          height=30,
                          bg="#33cccc"
                          )
 canvas_progress.place(x=330, y=50)
+
+# Closing the app by clicking the cross
+window.protocol("WM_DELETE_WINDOW", lambda: sys.exit())
 
 # Starting an infinite loop
 window.mainloop()
