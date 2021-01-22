@@ -1,3 +1,4 @@
+
 # PixelArtCode
 import cv2
 from tkinter import *
@@ -124,6 +125,11 @@ def video_pixel_art():
         image = conversion_to_pixel(frame, pixel_size)
         out.write(image)
     draw_progress(101)
+    canvas_progress.update()
+    canvas_progress.create_text(125, 17,
+                                text="Успешно!",
+                                font=("Arial", 12, "bold"),
+                                fill="#000000")
     video.release()
     out.release()
     cv2.destroyAllWindows()
