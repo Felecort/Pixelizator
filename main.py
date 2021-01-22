@@ -222,11 +222,11 @@ title_label.place(x=20, y=20)
 title_label.update()
 
 video_label = Label(window,
-                    text="Обработка:",
+                    text="Статус:",
                     font=("Arial", 14, "bold"),
                     bg="#33cccc"
                     )
-video_label.place(x=210, y=50)
+video_label.place(x=250, y=52)
 
 description_label = Label(window,
                           text="""
