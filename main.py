@@ -20,7 +20,11 @@ def draw_progress(progress):
     progress *= 2.5
     canvas_progress.update()
     canvas_progress.delete(ALL)
-    canvas_progress.create_rectangle(0, 0, progress, 50, fill="#E0E0E0", width=0)
+    canvas_progress.create_rectangle(0, 0,
+                                     progress, 50,
+                                     fill="#E0E0E0",
+                                     width=0
+                                     )
     return 0
 
 
@@ -41,8 +45,8 @@ def draw_image(image, image_name, pixel_size):
         canvas_progress.create_text(125, 17,
                                     text="Изображение сохранено",
                                     font=("Arial", 12, "bold"),
-                                    fill="#000000")
-
+                                    fill="#000000"
+                                    )
     cv2.destroyAllWindows()
 
 
@@ -84,7 +88,11 @@ def pixel_video(video, pixel_size):
 # Pixel art of a single image
 def image_pixel_art():
     canvas_progress.update()
-    canvas_progress.create_rectangle(0, 0, 250, 50, fill="#33cccc", width=0)
+    canvas_progress.create_rectangle(0, 0,
+                                     250, 50,
+                                     fill="#33cccc",
+                                     width=0
+                                     )
     pixel_size = int(entry_pixel_size.get())
     image_name = selecting_file()
     if image_name == '':
@@ -92,14 +100,16 @@ def image_pixel_art():
         canvas_progress.create_text(125, 17,
                                     text="Изображение отсутствует",
                                     font=("Arial", 12, "bold"),
-                                    fill="#000000")
+                                    fill="#000000"
+                                    )
         return 0
     elif image_name[-3:] not in ["jpg", "png"]:
         canvas_progress.update()
         canvas_progress.create_text(125, 17,
                                     text="Неподдерживаемый формат файла",
                                     font=("Arial", 10, "bold"),
-                                    fill="#000000")
+                                    fill="#000000"
+                                    )
         return 0
     image = cv2.imread(image_name)
     pixel_img = conversion_to_pixel(image, pixel_size)
@@ -109,7 +119,11 @@ def image_pixel_art():
 # Pixelation of video and output to the screen
 def video_pixel_art():
     canvas_progress.update()
-    canvas_progress.create_rectangle(0, 0, 250, 50, fill="#33cccc", width=0)
+    canvas_progress.create_rectangle(0, 0,
+                                     250, 50,
+                                     fill="#33cccc",
+                                     width=0
+                                     )
     pixel_size = int(entry_pixel_size.get())
     video_name = selecting_file()
     if video_name == '':
@@ -117,17 +131,23 @@ def video_pixel_art():
         canvas_progress.create_text(125, 17,
                                     text="Видео отсутствует",
                                     font=("Arial", 12, "bold"),
-                                    fill="#000000")
+                                    fill="#000000"
+                                    )
         return 0
     elif video_name[-3:] != "mp4":
         canvas_progress.update()
         canvas_progress.create_text(125, 17,
                                     text="Неподдерживаемый формат файла",
                                     font=("Arial", 10, "bold"),
-                                    fill="#000000")
+                                    fill="#000000"
+                                    )
         return 0
     canvas_progress.update()
-    canvas_progress.create_rectangle(0, 0, 250, 50, fill="#33cccc", width=0)
+    canvas_progress.create_rectangle(0, 0,
+                                     250, 50,
+                                     fill="#33cccc",
+                                     width=0
+                                     )
 
     video = cv2.VideoCapture(video_name)
     number_of_frames = video.get(cv2.CAP_PROP_FRAME_COUNT)
@@ -158,7 +178,8 @@ def video_pixel_art():
     canvas_progress.create_text(125, 17,
                                 text="Успешно!",
                                 font=("Arial", 12, "bold"),
-                                fill="#000000")
+                                fill="#000000"
+                                )
     video.release()
     out.release()
     cv2.destroyAllWindows()
@@ -167,14 +188,19 @@ def video_pixel_art():
 # Pixelate webcam video and display it on the screen
 def webcam_pixel_art():
     canvas_progress.update()
-    canvas_progress.create_rectangle(0, 0, 250, 50, fill="#33cccc", width=0)
+    canvas_progress.create_rectangle(0, 0,
+                                     250, 50,
+                                     fill="#33cccc",
+                                     width=0
+                                     )
     pixel_size = int(entry_pixel_size.get())
     video = cv2.VideoCapture(0, cv2.CAP_DSHOW)
     canvas_progress.update()
     canvas_progress.create_text(125, 17,
                                 text="Успешно!",
                                 font=("Arial", 12, "bold"),
-                                fill="#000000")
+                                fill="#000000"
+                                )
     pixel_video(video, pixel_size)
 
 
@@ -221,7 +247,8 @@ author_label = Label(window,
                      text="Автор приложения: https://github.com/FriLDD",
                      font=("Arial", 12, "bold"),
                      bg="#33cccc",
-                     cursor="hand2")
+                     cursor="hand2"
+                     )
 author_label.place(x=300, y=360)
 author_label.bind("<Button-1>", lambda x: open_new("https://github.com/FriLDD"))
 
@@ -264,7 +291,11 @@ exit_button = Button(window, text="Выход",
                      )
 exit_button.place(x=20, y=350)
 
-canvas_progress = Canvas(window, width=248, height=30, bg="#33cccc")
+canvas_progress = Canvas(window,
+                         width=248,
+                         height=30,
+                         bg="#33cccc"
+                         )
 canvas_progress.place(x=330, y=50)
 
 # Starting an infinite loop
