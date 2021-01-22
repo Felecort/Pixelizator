@@ -90,19 +90,23 @@ def video_pixel_art():
     start = time()
 
     video = cv2.VideoCapture(video_name)
+    number_of_frames = video.get(cv2.CAP_PROP_FRAME_COUNT)
     fps = video.get(cv2.CAP_PROP_FPS)
     ret, frame = video.read()
     width = int(frame.shape[1])
     height = int(frame.shape[0])
-
     fourcc = cv2.VideoWriter_fourcc(*'mp4v')
     symbol_index = video_name.rfind('.')
     video_name = video_name[:symbol_index] + "_EDIT.mp4"
     out = cv2.VideoWriter(video_name, fourcc, fps, (width, height))
+    count_frames = 0
     while True:
         ret, frame = video.read()
         if not ret:
             break
+        count_frames += 1
+        progress = round(count_frames / number_of_frames * 100)
+        print(progress)
         image = conversion_to_pixel(frame, pixel_size)
         out.write(image)
     video.release()
@@ -127,10 +131,6 @@ window.geometry("700x400+300+350")
 window.resizable(False, False)
 window.title("Python Art by FriLDD")
 window.config(bg="#33cccc")
-# ----------------------------------------------------
-# label_example = Label(window, text="This is Label")
-
-# ----------------------------------------------------
 
 # Text on the main window
 lbl = Label(window,
