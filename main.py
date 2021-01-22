@@ -49,7 +49,7 @@ def conversion_to_pixel(image, pixel_size=15):
             x_out += 1
         y_out += 1
         x_out = 0
-    out_image = cv2.resize(out_image, (width, height))
+    out_image = cv2.resize(out_image, (width, height), interpolation=cv2.INTER_NEAREST)
     return out_image
 
 
