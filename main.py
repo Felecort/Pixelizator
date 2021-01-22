@@ -154,7 +154,8 @@ def video_pixel_art():
         count_frames += 1
         image = conversion_to_pixel(frame, pixel_size)
         out.write(image)
-    canvas_update_status("Успешно!", 12)
+    draw_progress(100)
+    canvas_progress.create_text(125, 17, text="Успешно!", font=("Arial", 12, "bold"), fill="#000000")
     video.release()
     out.release()
     cv2.destroyAllWindows()
