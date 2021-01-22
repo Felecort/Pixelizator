@@ -14,12 +14,6 @@ def selecting_file():
     return file_name
 
 
-# Drawing the progress of video processing
-def draw_progress(progress):
-    progress *= 2.5
-    canvas_progress.update()
-    canvas_progress.create_rectangle(0, 0, progress, 50, fill="#E0E0E0", width=0)
-
 
 # Saving an image with adding "EDIT" at the end of the file to the source folder
 def save_image(image, image_name):
@@ -97,7 +91,6 @@ def video_pixel_art():
     start = time()
 
     video = cv2.VideoCapture(video_name)
-    number_of_frames = video.get(cv2.CAP_PROP_FRAME_COUNT)
     fps = video.get(cv2.CAP_PROP_FPS)
     ret, frame = video.read()
     width = int(frame.shape[1])
@@ -106,17 +99,12 @@ def video_pixel_art():
     symbol_index = video_name.rfind('.')
     video_name = video_name[:symbol_index] + "_EDIT.mp4"
     out = cv2.VideoWriter(video_name, fourcc, fps, (width, height))
-    count_frames = 0
     while True:
         ret, frame = video.read()
         if not ret:
             break
-        count_frames += 1
-        progress = round(count_frames / number_of_frames * 100)
-        draw_progress(progress)
         image = conversion_to_pixel(frame, pixel_size)
         out.write(image)
-    draw_progress(100)
     video.release()
     out.release()
     print(time() - start)
@@ -194,9 +182,6 @@ exit_button = Button(window, text="Exit",
                      width=10
                      )
 exit_button.place(x=20, y=350)
-
-canvas_progress = Canvas(window, width=250, height=30, bg="#33cccc")
-canvas_progress.place(x=330, y=50)
 
 # Starting an infinite loop
 window.mainloop()
