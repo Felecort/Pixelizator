@@ -3,7 +3,7 @@
 import cv2
 from tkinter import *
 from tkinter.filedialog import askopenfilename
-import numpy as np
+from numpy import zeros, uint8
 from sys import exit
 from webbrowser import open_new
 
@@ -60,7 +60,7 @@ def conversion_to_pixel(image, pixel_size=15):
     half_pixel_size = int(pixel_size / 2)
     x_out = 0
     y_out = 0
-    out_image = np.zeros((pixel_height, pixel_width, 3), dtype=np.uint8)
+    out_image = zeros((pixel_height, pixel_width, 3), dtype=uint8)
     for y in range(0, height - pixel_size + 1, pixel_size):
         for x in range(0, width - pixel_size + 1, pixel_size):
             pixel_color = image[y + half_pixel_size, x + half_pixel_size]
