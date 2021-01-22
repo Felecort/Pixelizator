@@ -35,8 +35,14 @@ def save_image(image, image_name):
 def draw_image(image, image_name, pixel_size):
     cv2.imshow(f"PixelArt, size = {pixel_size}", image)
     key = cv2.waitKey(0)
-    if key == 115:
+    if key in [115, 251]:
         save_image(image, image_name)
+        canvas_progress.update()
+        canvas_progress.create_text(125, 17,
+                                    text="Изображение сохранено",
+                                    font=("Arial", 12, "bold"),
+                                    fill="#000000")
+
     cv2.destroyAllWindows()
 
 
@@ -97,11 +103,6 @@ def image_pixel_art():
         return 0
     image = cv2.imread(image_name)
     pixel_img = conversion_to_pixel(image, pixel_size)
-    canvas_progress.update()
-    canvas_progress.create_text(125, 17,
-                                text="Успешно!",
-                                font=("Arial", 12, "bold"),
-                                fill="#000000")
     draw_image(pixel_img, image_name, pixel_size)
 
 
