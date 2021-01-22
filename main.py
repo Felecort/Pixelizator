@@ -3,8 +3,8 @@
 import cv2
 from tkinter import *
 from tkinter.filedialog import askopenfilename
-from numpy import zeros, uint8
-from sys import exit
+import numpy as np
+import sys
 from webbrowser import open_new
 
 
@@ -13,6 +13,24 @@ def selecting_file():
     Tk().withdraw()
     file_name = askopenfilename()
     return file_name
+
+
+def canvas_update_status(text, font_size):
+    canvas_progress.update()
+    canvas_progress.create_text(125, 17,
+                                text=text,
+                                font=("Arial", font_size, "bold"),
+                                fill="#000000"
+                                )
+
+
+def canvas_update_rect():
+    canvas_progress.update()
+    canvas_progress.create_rectangle(0, 0,
+                                     250, 50,
+                                     fill="#33cccc",
+                                     width=0
+                                     )
 
 
 # Drawing the progress of video processing
@@ -37,16 +55,12 @@ def save_image(image, image_name):
 
 # Drawing an image on the screen
 def draw_image(image, image_name, pixel_size):
-    cv2.imshow(f"PixelArt, size = {pixel_size}", image)
+    cv2.imshow(f"Size = {pixel_size}", image)
     key = cv2.waitKey(0)
     if key in [115, 251]:
         save_image(image, image_name)
+        canvas_update_status("Изображение сохранено", 12)
         canvas_progress.update()
-        canvas_progress.create_text(125, 17,
-                                    text="Изображение сохранено",
-                                    font=("Arial", 12, "bold"),
-                                    fill="#000000"
-                                    )
     cv2.destroyAllWindows()
 
 
@@ -54,13 +68,12 @@ def draw_image(image, image_name, pixel_size):
 def conversion_to_pixel(image, pixel_size=15):
     width = int(image.shape[1])
     height = int(image.shape[0])
-    # resolution of the final image
     pixel_height = int((height - pixel_size) / pixel_size) + 1
     pixel_width = int((width - pixel_size) / pixel_size) + 1
     half_pixel_size = int(pixel_size / 2)
     x_out = 0
     y_out = 0
-    out_image = zeros((pixel_height, pixel_width, 3), dtype=uint8)
+    out_image = np.zeros((pixel_height, pixel_width, 3), dtype=np.uint8)
     for y in range(0, height - pixel_size + 1, pixel_size):
         for x in range(0, width - pixel_size + 1, pixel_size):
             pixel_color = image[y + half_pixel_size, x + half_pixel_size]
@@ -87,29 +100,14 @@ def pixel_video(video, pixel_size):
 
 # Pixel art of a single image
 def image_pixel_art():
-    canvas_progress.update()
-    canvas_progress.create_rectangle(0, 0,
-                                     250, 50,
-                                     fill="#33cccc",
-                                     width=0
-                                     )
+    canvas_update_rect()
     pixel_size = int(entry_pixel_size.get())
     image_name = selecting_file()
     if image_name == '':
-        canvas_progress.update()
-        canvas_progress.create_text(125, 17,
-                                    text="Изображение отсутствует",
-                                    font=("Arial", 12, "bold"),
-                                    fill="#000000"
-                                    )
+        canvas_update_status("Изображение отсутствует", 12)
         return 0
     elif image_name[-3:] not in ["jpg", "png"]:
-        canvas_progress.update()
-        canvas_progress.create_text(125, 17,
-                                    text="Неподдерживаемый формат файла",
-                                    font=("Arial", 10, "bold"),
-                                    fill="#000000"
-                                    )
+        canvas_update_status("Неподдерживаемый формат файла", 10)
         return 0
     image = cv2.imread(image_name)
     pixel_img = conversion_to_pixel(image, pixel_size)
@@ -118,36 +116,15 @@ def image_pixel_art():
 
 # Pixelation of video and output to the screen
 def video_pixel_art():
-    canvas_progress.update()
-    canvas_progress.create_rectangle(0, 0,
-                                     250, 50,
-                                     fill="#33cccc",
-                                     width=0
-                                     )
+    canvas_update_rect()
     pixel_size = int(entry_pixel_size.get())
     video_name = selecting_file()
     if video_name == '':
-        canvas_progress.update()
-        canvas_progress.create_text(125, 17,
-                                    text="Видео отсутствует",
-                                    font=("Arial", 12, "bold"),
-                                    fill="#000000"
-                                    )
+        canvas_update_status("Видео отсутствует", 12)
         return 0
     elif video_name[-3:] != "mp4":
-        canvas_progress.update()
-        canvas_progress.create_text(125, 17,
-                                    text="Неподдерживаемый формат файла",
-                                    font=("Arial", 10, "bold"),
-                                    fill="#000000"
-                                    )
+        canvas_update_status("Неподдерживаемый формат файла", 10)
         return 0
-    canvas_progress.update()
-    canvas_progress.create_rectangle(0, 0,
-                                     250, 50,
-                                     fill="#33cccc",
-                                     width=0
-                                     )
 
     video = cv2.VideoCapture(video_name)
     number_of_frames = video.get(cv2.CAP_PROP_FRAME_COUNT)
@@ -174,12 +151,7 @@ def video_pixel_art():
         image = conversion_to_pixel(frame, pixel_size)
         out.write(image)
     draw_progress(100)
-    canvas_progress.update()
-    canvas_progress.create_text(125, 17,
-                                text="Успешно!",
-                                font=("Arial", 12, "bold"),
-                                fill="#000000"
-                                )
+    canvas_update_status("Успешно!", 12)
     video.release()
     out.release()
     cv2.destroyAllWindows()
@@ -187,20 +159,10 @@ def video_pixel_art():
 
 # Pixelate webcam video and display it on the screen
 def webcam_pixel_art():
-    canvas_progress.update()
-    canvas_progress.create_rectangle(0, 0,
-                                     250, 50,
-                                     fill="#33cccc",
-                                     width=0
-                                     )
+    canvas_update_rect()
     pixel_size = int(entry_pixel_size.get())
     video = cv2.VideoCapture(0, cv2.CAP_DSHOW)
-    canvas_progress.update()
-    canvas_progress.create_text(125, 17,
-                                text="Успешно!",
-                                font=("Arial", 12, "bold"),
-                                fill="#000000"
-                                )
+    canvas_update_status("Успешно!", 12)
     pixel_video(video, pixel_size)
 
 
@@ -284,7 +246,7 @@ webcam_button.place(x=20, y=200)
 
 # Exit
 exit_button = Button(window, text="Выход",
-                     command=lambda: exit(),
+                     command=lambda: sys.exit(),
                      activebackground="#E0E0E0",
                      font=("Arial", 12),
                      width=10
