@@ -88,19 +88,6 @@ def conversion_to_pixel(image, pixel_size=15):
     return out_image
 
 
-# Pixelation of the video stream
-def pixel_video(video, pixel_size):
-    while True:
-        ret, frame = video.read()
-        key = cv2.waitKey(1)
-        if not ret or (key & 0xFF in [27, 32, 113]):
-            break
-        image = conversion_to_pixel(frame, pixel_size)
-        cv2.imshow("frame", image)
-    video.release()
-    cv2.destroyAllWindows()
-
-
 # Pixel art of a single image
 def image_pixel_art():
     canvas_update_rect()
@@ -164,7 +151,15 @@ def webcam_pixel_art():
     pixel_size = int(entry_pixel_size.get())
     video = cv2.VideoCapture(0, cv2.CAP_DSHOW)
     canvas_update_status("Успешно!", 12)
-    pixel_video(video, pixel_size)
+    while True:
+        ret, frame = video.read()
+        key = cv2.waitKey(1)
+        if not ret or (key & 0xFF in [27, 32, 113]):
+            break
+        image = conversion_to_pixel(frame, pixel_size)
+        cv2.imshow("frame", image)
+    video.release()
+    cv2.destroyAllWindows()
 
 
 # The formation of the main window
