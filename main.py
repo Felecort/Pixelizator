@@ -70,8 +70,7 @@ def draw_image(image, image_name, pixel_size):
 
 # Converting an image to pixel art
 def conversion_to_pixel(image, pixel_size=15):
-    width = int(image.shape[1])
-    height = int(image.shape[0])
+    height, width = image.shape[0:2]
     pixel_height = int((height - pixel_size) / pixel_size) + 1
     pixel_width = int((width - pixel_size) / pixel_size) + 1
     half_pixel_size = int(pixel_size / 2)
@@ -136,9 +135,7 @@ def video_pixel_art():
     count_frames = 0
 
     ret, frame = video.read()
-    width = int(frame.shape[1])
-    height = int(frame.shape[0])
-
+    height, width = frame.shape[0:2]
     symbol_index = video_name.rfind('.')
     video_name = video_name[:symbol_index] + "_EDIT.mp4"
     fourcc = cv2.VideoWriter_fourcc(*'mp4v')
