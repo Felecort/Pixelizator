@@ -7,7 +7,6 @@ import numpy as np
 import sys
 from webbrowser import open_new
 from numba import njit
-from time import time
 
 
 # Creating a dialog box for selecting a file
@@ -136,7 +135,6 @@ def video_pixel_art():
     video_name = video_name[:symbol_index] + "_EDIT.mp4"
     fourcc = cv2.VideoWriter_fourcc(*'mp4v')
     out = cv2.VideoWriter(video_name, fourcc, fps, (width, height))
-    start = time()
     while True:
         ret, frame = video.read()
         if not ret:
@@ -146,11 +144,8 @@ def video_pixel_art():
             draw_progress(progress)
         count_frames += 1
         image = conversion_to_pixel(frame, pixel_size)
-        # image = njit_conversion(frame, pixel_size)
         out.write(image)
     draw_progress(100)
-    end = time()
-    print(end - start)
     canvas_progress.create_text(125, 17, text="Успешно!", font=("Arial", 12, "bold"), fill="#000000")
     video.release()
     out.release()
