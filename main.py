@@ -6,6 +6,8 @@ from tkinter.filedialog import askopenfilename
 import numpy as np
 import sys
 from webbrowser import open_new
+from numba import njit
+from time import time
 
 
 # Creating a dialog box for selecting a file
@@ -68,8 +70,8 @@ def draw_image(image, image_name, pixel_size):
     cv2.destroyAllWindows()
 
 
-# Converting an image to pixel art
-def conversion_to_pixel(image, pixel_size=15):
+@njit(fastmath=True)
+def pixelation_algorithm(image, pixel_size):
     height, width = image.shape[0:2]
     pixel_height = int((height - pixel_size) / pixel_size) + 1
     pixel_width = int((width - pixel_size) / pixel_size) + 1
@@ -84,7 +86,13 @@ def conversion_to_pixel(image, pixel_size=15):
             x_out += 1
         y_out += 1
         x_out = 0
-    out_image = cv2.resize(out_image, (width, height), interpolation=cv2.INTER_NEAREST)
+    return out_image
+
+
+# Converting an image to pixel art
+def conversion_to_pixel(image, pixel_size=15):
+    out_image_njit = pixelation_algorithm(image, pixel_size)
+    out_image = cv2.resize(out_image_njit, (image.shape[1], image.shape[0]), interpolation=cv2.INTER_NEAREST)
     return out_image
 
 
@@ -101,6 +109,7 @@ def image_pixel_art():
         return 0
     image = cv2.imread(image_name)
     pixel_img = conversion_to_pixel(image, pixel_size)
+    # image = njit_conversion(frame, pixel_size)
     draw_image(pixel_img, image_name, pixel_size)
 
 
@@ -127,7 +136,7 @@ def video_pixel_art():
     video_name = video_name[:symbol_index] + "_EDIT.mp4"
     fourcc = cv2.VideoWriter_fourcc(*'mp4v')
     out = cv2.VideoWriter(video_name, fourcc, fps, (width, height))
-
+    start = time()
     while True:
         ret, frame = video.read()
         if not ret:
@@ -137,8 +146,11 @@ def video_pixel_art():
             draw_progress(progress)
         count_frames += 1
         image = conversion_to_pixel(frame, pixel_size)
+        # image = njit_conversion(frame, pixel_size)
         out.write(image)
     draw_progress(100)
+    end = time()
+    print(end - start)
     canvas_progress.create_text(125, 17, text="Успешно!", font=("Arial", 12, "bold"), fill="#000000")
     video.release()
     out.release()
@@ -157,6 +169,7 @@ def webcam_pixel_art():
         if not ret or (key & 0xFF in [27, 32, 113]):
             break
         image = conversion_to_pixel(frame, pixel_size)
+        # image = njit_conversion(frame, pixel_size)
         cv2.imshow("frame", image)
     video.release()
     cv2.destroyAllWindows()
