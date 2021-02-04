@@ -90,9 +90,9 @@ def pixelation_algorithm(image, pixel_size):
 
 # Converting an image to pixel art
 def conversion_to_pixel(image, pixel_size=15):
-    out_image_njit = pixelation_algorithm(image, pixel_size)
-    out_image = cv2.resize(out_image_njit, (image.shape[1], image.shape[0]), interpolation=cv2.INTER_NEAREST)
-    return out_image
+    out_image = pixelation_algorithm(image, pixel_size)
+    out_image_resize = cv2.resize(out_image, (image.shape[1], image.shape[0]), interpolation=cv2.INTER_NEAREST)
+    return out_image_resize
 
 
 # Pixel art of a single image
@@ -108,7 +108,6 @@ def image_pixel_art():
         return 0
     image = cv2.imread(image_name)
     pixel_img = conversion_to_pixel(image, pixel_size)
-    # image = njit_conversion(frame, pixel_size)
     draw_image(pixel_img, image_name, pixel_size)
 
 
@@ -164,7 +163,6 @@ def webcam_pixel_art():
         if not ret or (key & 0xFF in [27, 32, 113]):
             break
         image = conversion_to_pixel(frame, pixel_size)
-        # image = njit_conversion(frame, pixel_size)
         cv2.imshow("frame", image)
     video.release()
     cv2.destroyAllWindows()
@@ -265,7 +263,7 @@ canvas_progress = Canvas(window,
 canvas_progress.place(x=330, y=50)
 
 # Closing the app by clicking the cross
-window.protocol("WM_DELETE_WINDOW", lambda: sys.exit())
+window.protocol("WM_DELETE_WINDOW", sys.exit)
 
 # Starting an infinite loop
 window.mainloop()
