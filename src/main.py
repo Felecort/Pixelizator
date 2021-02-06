@@ -1,4 +1,3 @@
-
 # PixelArtCode
 import cv2
 from tkinter import *
@@ -168,6 +167,10 @@ def webcam_pixel_art():
     cv2.destroyAllWindows()
 
 
+# Start Program
+# Warming up the cache
+conversion_to_pixel(cv2.imread("D:\Projects\PythonProjects\PixelArt\src\warming_up_the_cache.png"), 2)
+
 # The formation of the main window
 window = Tk()
 
@@ -177,6 +180,7 @@ window.title("Python Art by FriLDD")
 window.config(bg="#33cccc")
 
 # Text on the main window
+
 title_label = Label(window,
                     text="Размер пикселя:",
                     font=("Arial", 14, "bold"),
@@ -264,6 +268,5 @@ canvas_progress.place(x=330, y=50)
 
 # Closing the app by clicking the cross
 window.protocol("WM_DELETE_WINDOW", sys.exit)
-
 # Starting an infinite loop
 window.mainloop()
