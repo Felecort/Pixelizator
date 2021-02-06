@@ -58,7 +58,7 @@ def image_pixel_art():
     # pixel_size = int(entry_pixel_size.get())
     pixel_size = get_pixel_size()
 
-    image_name = selecting_file()
+    image_name = askopenfilename()
     if image_name == '':
         canvas_update_status("Изображение отсутствует", 12)
         return 0
@@ -74,7 +74,7 @@ def image_pixel_art():
 def video_pixel_art():
     canvas_update_rect()
     pixel_size = get_pixel_size()
-    video_name = selecting_file()
+    video_name = askopenfilename()
     if video_name == '':
         canvas_update_status("Видео отсутствует", 12)
         return 0
@@ -140,13 +140,6 @@ def get_pixel_size():
         return 1
 
 
-# Creating a dialog box for selecting a file
-def selecting_file():
-    Tk().withdraw()
-    file_name = askopenfilename()
-    return file_name
-
-
 # Updating the text status
 def canvas_update_status(text, font_size):
     canvas_progress.update()
@@ -187,6 +180,9 @@ def draw_progress(progress):
 conversion_to_pixel(cv2.imread(sys.path[0] + "\\warming_up_the_cache.png"), 2)
 
 # The formation of the main window
+select_file_window = Tk()
+select_file_window.withdraw()
+
 window = Tk()
 
 window.geometry("700x400+300+350")
