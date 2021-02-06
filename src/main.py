@@ -169,7 +169,7 @@ def webcam_pixel_art():
 
 # Start Program
 # Warming up the cache
-conversion_to_pixel(cv2.imread("D:\Projects\PythonProjects\PixelArt\src\warming_up_the_cache.png"), 2)
+conversion_to_pixel(cv2.imread(sys.path[0] + "\\warming_up_the_cache.png"), 2)
 
 # The formation of the main window
 window = Tk()
