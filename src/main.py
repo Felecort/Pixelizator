@@ -27,6 +27,8 @@ def draw_image(image, image_name, pixel_size):
     cv2.destroyAllWindows()
 
 
+# Creating a new image by taking one pixel of the area of the original image
+# and painting over one pixel of the other
 @njit(fastmath=True)
 def pixelation_algorithm(image, pixel_size):
     height, width = image.shape[0:2]
@@ -46,7 +48,7 @@ def pixelation_algorithm(image, pixel_size):
     return out_image
 
 
-# Converting an image to pixel art
+# Auxiliary function: needed to call the main algorithm in acceleration mode
 def conversion_to_pixel(image, pixel_size=15):
     out_image = pixelation_algorithm(image, pixel_size)
     out_image_resize = cv2.resize(out_image, (image.shape[1], image.shape[0]), interpolation=cv2.INTER_NEAREST)
@@ -56,7 +58,6 @@ def conversion_to_pixel(image, pixel_size=15):
 # Pixel art of a single image
 def image_pixel_art():
     canvas_update_rect()
-    # pixel_size = int(entry_pixel_size.get())
     pixel_size = get_pixel_size()
 
     image_name = askopenfilename()
@@ -128,6 +129,7 @@ def webcam_pixel_art():
     cv2.destroyAllWindows()
 
 
+# Getting and processing the pixel size
 def get_pixel_size():
     try:
         ps = int(entry_pixel_size.get())
@@ -141,6 +143,7 @@ def get_pixel_size():
         return 1
 
 
+# GUI
 # Updating the text status
 def canvas_update_status(text, font_size):
     canvas_progress.update()
@@ -180,9 +183,11 @@ def draw_progress(progress):
 # Warming up the cache
 conversion_to_pixel(cv2.imread(sys.path[0] + "\\warming_up_the_cache.png"), 2)
 
-# The formation of the main window
+# Preparing the file selection window
 select_file_window = tkinter.Tk()
 select_file_window.withdraw()
+
+# The formation of the main window
 window = tkinter.Tk()
 
 window.geometry("700x400+300+350")
@@ -191,7 +196,6 @@ window.title("Python Art by FriLDD")
 window.config(bg="#33cccc")
 
 # Text on the main window
-
 title_label = tkinter.Label(window,
                             text="Размер пикселя:",
                             font=("Arial", 14, "bold"),
