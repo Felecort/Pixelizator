@@ -1,9 +1,10 @@
+
 # PixelArtCode
 import cv2
-from tkinter import *
-from tkinter.filedialog import askopenfilename
 import numpy as np
 import sys
+import tkinter
+from tkinter.filedialog import askopenfilename
 from webbrowser import open_new
 from numba import njit
 
@@ -143,7 +144,7 @@ def get_pixel_size():
 # Updating the text status
 def canvas_update_status(text, font_size):
     canvas_progress.update()
-    canvas_progress.delete(ALL)
+    canvas_progress.delete(tkinter.ALL)
     canvas_progress.create_text(125, 17,
                                 text=text,
                                 font=("Arial", font_size, "bold"),
@@ -154,7 +155,7 @@ def canvas_update_status(text, font_size):
 # Updating the rectangle rendering
 def canvas_update_rect():
     canvas_progress.update()
-    canvas_progress.delete(ALL)
+    canvas_progress.delete(tkinter.ALL)
     canvas_progress.create_rectangle(0, 0,
                                      250, 50,
                                      fill="#33cccc",
@@ -166,7 +167,7 @@ def canvas_update_rect():
 def draw_progress(progress):
     progress *= 2.5
     canvas_progress.update()
-    canvas_progress.delete(ALL)
+    canvas_progress.delete(tkinter.ALL)
     canvas_progress.create_rectangle(0, 0,
                                      progress, 50,
                                      fill="#E0E0E0",
@@ -180,10 +181,9 @@ def draw_progress(progress):
 conversion_to_pixel(cv2.imread(sys.path[0] + "\\warming_up_the_cache.png"), 2)
 
 # The formation of the main window
-select_file_window = Tk()
+select_file_window = tkinter.Tk()
 select_file_window.withdraw()
-
-window = Tk()
+window = tkinter.Tk()
 
 window.geometry("700x400+300+350")
 window.resizable(False, False)
@@ -192,23 +192,23 @@ window.config(bg="#33cccc")
 
 # Text on the main window
 
-title_label = Label(window,
-                    text="Размер пикселя:",
-                    font=("Arial", 14, "bold"),
-                    bg="#33cccc"
-                    )
+title_label = tkinter.Label(window,
+                            text="Размер пикселя:",
+                            font=("Arial", 14, "bold"),
+                            bg="#33cccc"
+                            )
 title_label.place(x=20, y=20)
 title_label.update()
 
-video_label = Label(window,
-                    text="Статус:",
-                    font=("Arial", 14, "bold"),
-                    bg="#33cccc"
-                    )
+video_label = tkinter.Label(window,
+                            text="Статус:",
+                            font=("Arial", 14, "bold"),
+                            bg="#33cccc"
+                            )
 video_label.place(x=250, y=52)
 
-description_label = Label(window,
-                          text="""
+description_label = tkinter.Label(window,
+                                  text="""
 Для сохранения изображения нажмите "s" 
 
 Закрыть изображение: "space" или "esc"
@@ -216,65 +216,65 @@ description_label = Label(window,
 Обработанные видео сохраняются
 в той же папке, где и оригинал
                             """,
-                          font=("Arial", 12, "bold"),
-                          bg="#33cccc",
-                          justify=LEFT
-                          )
+                                  font=("Arial", 12, "bold"),
+                                  bg="#33cccc",
+                                  justify=tkinter.LEFT
+                                  )
 description_label.place(x=300, y=200)
 
-author_label = Label(window,
-                     text="Автор приложения: FriLDD *клик*",
-                     font=("Arial", 12, "bold"),
-                     bg="#33cccc",
-                     cursor="hand2"
-                     )
+author_label = tkinter.Label(window,
+                             text="Автор приложения: FriLDD *клик*",
+                             font=("Arial", 12, "bold"),
+                             bg="#33cccc",
+                             cursor="hand2"
+                             )
 author_label.place(x=300, y=360)
 author_label.bind("<Button-1>", lambda x: open_new("https://github.com/FriLDD"))
 
 # Text input window options
-entry_pixel_size = Entry(window,
-                         width=12,
-                         font=("Arial", 14))
+entry_pixel_size = tkinter.Entry(window,
+                                 width=12,
+                                 font=("Arial", 14))
 entry_pixel_size.place(x=20, y=50)
 entry_pixel_size.insert(0, "10")
 entry_pixel_size.focus()
 entry_pixel_size.update()
 
 # Calling functions based on clicks
-image_button = Button(window, text="Изображение", command=image_pixel_art,
-                      activebackground="#E0E0E0",
-                      font=("Arial", 14),
-                      width=12
-                      )
+image_button = tkinter.Button(window, text="Изображение", command=image_pixel_art,
+                              activebackground="#E0E0E0",
+                              font=("Arial", 14),
+                              width=12
+                              )
 image_button.place(x=20, y=100)
-video_button = Button(window, text="Видео", command=video_pixel_art,
-                      activebackground="#E0E0E0",
-                      font=("Arial", 14),
-                      width=12
-                      )
+video_button = tkinter.Button(window, text="Видео", command=video_pixel_art,
+                              activebackground="#E0E0E0",
+                              font=("Arial", 14),
+                              width=12
+                              )
 video_button.place(x=20, y=150)
-webcam_button = Button(window, text="Веб-камера", command=webcam_pixel_art,
-                       activebackground="#E0E0E0",
-                       font=("Arial", 14),
-                       width=12
-                       )
+webcam_button = tkinter.Button(window, text="Веб-камера", command=webcam_pixel_art,
+                               activebackground="#E0E0E0",
+                               font=("Arial", 14),
+                               width=12
+                               )
 webcam_button.place(x=20, y=200)
 
 # Exit
-exit_button = Button(window, text="Выход",
-                     command=lambda: sys.exit(),
-                     activebackground="#E0E0E0",
-                     font=("Arial", 12),
-                     width=10
-                     )
+exit_button = tkinter.Button(window, text="Выход",
+                             command=lambda: sys.exit(),
+                             activebackground="#E0E0E0",
+                             font=("Arial", 12),
+                             width=10
+                             )
 exit_button.place(x=20, y=350)
 
 # Progress bar
-canvas_progress = Canvas(window,
-                         width=248,
-                         height=30,
-                         bg="#33cccc"
-                         )
+canvas_progress = tkinter.Canvas(window,
+                                 width=248,
+                                 height=30,
+                                 bg="#33cccc"
+                                 )
 canvas_progress.place(x=330, y=50)
 
 # Closing the app by clicking the cross
