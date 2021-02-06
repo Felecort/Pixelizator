@@ -8,48 +8,6 @@ from webbrowser import open_new
 from numba import njit
 
 
-# Creating a dialog box for selecting a file
-def selecting_file():
-    Tk().withdraw()
-    file_name = askopenfilename()
-    return file_name
-
-
-# Updating the text status
-def canvas_update_status(text, font_size):
-    canvas_progress.update()
-    canvas_progress.delete(ALL)
-    canvas_progress.create_text(125, 17,
-                                text=text,
-                                font=("Arial", font_size, "bold"),
-                                fill="#000000"
-                                )
-
-
-# Updating the rectangle rendering
-def canvas_update_rect():
-    canvas_progress.update()
-    canvas_progress.delete(ALL)
-    canvas_progress.create_rectangle(0, 0,
-                                     250, 50,
-                                     fill="#33cccc",
-                                     width=0
-                                     )
-
-
-# Drawing the progress of video processing
-def draw_progress(progress):
-    progress *= 2.5
-    canvas_progress.update()
-    canvas_progress.delete(ALL)
-    canvas_progress.create_rectangle(0, 0,
-                                     progress, 50,
-                                     fill="#E0E0E0",
-                                     width=0
-                                     )
-    return 0
-
-
 # Saving an image with adding "EDIT" at the end of the file to the source folder
 def save_image(image, image_name):
     symbol_index = image_name.rfind('.')
@@ -97,7 +55,9 @@ def conversion_to_pixel(image, pixel_size=15):
 # Pixel art of a single image
 def image_pixel_art():
     canvas_update_rect()
-    pixel_size = int(entry_pixel_size.get())
+    # pixel_size = int(entry_pixel_size.get())
+    pixel_size = get_pixel_size()
+
     image_name = selecting_file()
     if image_name == '':
         canvas_update_status("Изображение отсутствует", 12)
@@ -113,7 +73,7 @@ def image_pixel_art():
 # Pixelation of video and output to the screen
 def video_pixel_art():
     canvas_update_rect()
-    pixel_size = int(entry_pixel_size.get())
+    pixel_size = get_pixel_size()
     video_name = selecting_file()
     if video_name == '':
         canvas_update_status("Видео отсутствует", 12)
@@ -153,7 +113,7 @@ def video_pixel_art():
 # Pixelate webcam video and display it on the screen
 def webcam_pixel_art():
     canvas_update_rect()
-    pixel_size = int(entry_pixel_size.get())
+    pixel_size = get_pixel_size()
     video = cv2.VideoCapture(0, cv2.CAP_DSHOW)
     canvas_update_status("Успешно!", 12)
     while True:
@@ -165,6 +125,57 @@ def webcam_pixel_art():
         cv2.imshow("frame", image)
     video.release()
     cv2.destroyAllWindows()
+
+
+def get_pixel_size():
+    ps = int(entry_pixel_size.get())
+    if ps < 1:
+        canvas_update_status("Невозможный размер пикселизации", 10)
+        return abs(ps) + 1
+    else:
+        return ps
+
+
+# Creating a dialog box for selecting a file
+def selecting_file():
+    Tk().withdraw()
+    file_name = askopenfilename()
+    return file_name
+
+
+# Updating the text status
+def canvas_update_status(text, font_size):
+    canvas_progress.update()
+    canvas_progress.delete(ALL)
+    canvas_progress.create_text(125, 17,
+                                text=text,
+                                font=("Arial", font_size, "bold"),
+                                fill="#000000"
+                                )
+
+
+# Updating the rectangle rendering
+def canvas_update_rect():
+    canvas_progress.update()
+    canvas_progress.delete(ALL)
+    canvas_progress.create_rectangle(0, 0,
+                                     250, 50,
+                                     fill="#33cccc",
+                                     width=0
+                                     )
+
+
+# Drawing the progress of video processing
+def draw_progress(progress):
+    progress *= 2.5
+    canvas_progress.update()
+    canvas_progress.delete(ALL)
+    canvas_progress.create_rectangle(0, 0,
+                                     progress, 50,
+                                     fill="#E0E0E0",
+                                     width=0
+                                     )
+    return 0
 
 
 # Start Program
