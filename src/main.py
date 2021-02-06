@@ -128,12 +128,16 @@ def webcam_pixel_art():
 
 
 def get_pixel_size():
-    ps = int(entry_pixel_size.get())
-    if ps < 1:
+    try:
+        ps = int(entry_pixel_size.get())
+        if ps < 1:
+            canvas_update_status("Невозможный размер пикселизации", 10)
+            return abs(ps) + 1
+        else:
+            return ps
+    except ValueError:
         canvas_update_status("Невозможный размер пикселизации", 10)
-        return abs(ps) + 1
-    else:
-        return ps
+        return 1
 
 
 # Creating a dialog box for selecting a file
