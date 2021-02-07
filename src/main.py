@@ -181,7 +181,7 @@ def draw_progress(progress):
 
 # Start Program
 # Warming up the cache
-conversion_to_pixel(np.array([[[0, 0, 0]]], dtype=np.uint8))
+pixelation_algorithm(np.array([[[0, 0, 0]]], dtype=np.uint8), 1)
 
 # Preparing the file selection window
 select_file_window = tkinter.Tk()
