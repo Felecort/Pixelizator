@@ -181,7 +181,7 @@ def draw_progress(progress):
 
 # Start Program
 # Warming up the cache
-conversion_to_pixel(cv2.imread(sys.path[0] + "\\warming_up_the_cache.png"), 2)
+conversion_to_pixel(np.array([[[0, 0, 0]]], dtype=np.uint8))
 
 # Preparing the file selection window
 select_file_window = tkinter.Tk()
@@ -245,19 +245,25 @@ entry_pixel_size.focus()
 entry_pixel_size.update()
 
 # Calling functions based on clicks
-image_button = tkinter.Button(window, text="Изображение", command=image_pixel_art,
+image_button = tkinter.Button(window,
+                              text="Изображение",
+                              command=image_pixel_art,
                               activebackground="#E0E0E0",
                               font=("Arial", 14),
                               width=12
                               )
 image_button.place(x=20, y=100)
-video_button = tkinter.Button(window, text="Видео", command=video_pixel_art,
+video_button = tkinter.Button(window,
+                              text="Видео",
+                              command=video_pixel_art,
                               activebackground="#E0E0E0",
                               font=("Arial", 14),
                               width=12
                               )
 video_button.place(x=20, y=150)
-webcam_button = tkinter.Button(window, text="Веб-камера", command=webcam_pixel_art,
+webcam_button = tkinter.Button(window,
+                               text="Веб-камера",
+                               command=webcam_pixel_art,
                                activebackground="#E0E0E0",
                                font=("Arial", 14),
                                width=12
@@ -265,7 +271,8 @@ webcam_button = tkinter.Button(window, text="Веб-камера", command=webca
 webcam_button.place(x=20, y=200)
 
 # Exit
-exit_button = tkinter.Button(window, text="Выход",
+exit_button = tkinter.Button(window,
+                             text="Выход",
                              command=lambda: sys.exit(),
                              activebackground="#E0E0E0",
                              font=("Arial", 12),
