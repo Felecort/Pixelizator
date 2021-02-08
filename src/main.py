@@ -1,4 +1,3 @@
-
 # PixelArtCode
 import cv2
 import numpy as np
@@ -239,7 +238,6 @@ entry_pixel_size.update()
 
 # Progress bar
 canvas_progress = tkinter.Canvas(window,
-
                                  width=248,
                                  height=30,
                                  bg="#33cccc"
