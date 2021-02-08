@@ -204,13 +204,6 @@ title_label = tkinter.Label(window,
 title_label.place(x=20, y=20)
 title_label.update()
 
-video_label = tkinter.Label(window,
-                            text="Статус:",
-                            font=("Arial", 14, "bold"),
-                            bg="#33cccc"
-                            )
-video_label.place(x=250, y=52)
-
 description_label = tkinter.Label(window,
                                   text="""
 Для сохранения изображения нажмите "s" 
@@ -243,6 +236,15 @@ entry_pixel_size.place(x=20, y=50)
 entry_pixel_size.insert(0, "10")
 entry_pixel_size.focus()
 entry_pixel_size.update()
+
+# Progress bar
+canvas_progress = tkinter.Canvas(window,
+
+                                 width=248,
+                                 height=30,
+                                 bg="#33cccc"
+                                 )
+canvas_progress.place(x=330, y=50)
 
 # Calling functions based on clicks
 image_button = tkinter.Button(window,
@@ -279,14 +281,6 @@ exit_button = tkinter.Button(window,
                              width=10
                              )
 exit_button.place(x=20, y=350)
-
-# Progress bar
-canvas_progress = tkinter.Canvas(window,
-                                 width=248,
-                                 height=30,
-                                 bg="#33cccc"
-                                 )
-canvas_progress.place(x=330, y=50)
 
 # Closing the app by clicking the cross
 window.protocol("WM_DELETE_WINDOW", sys.exit)
